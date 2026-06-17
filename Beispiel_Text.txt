@@ -1,0 +1,224 @@
+[vc_row][vc_column][vc_column_text css=""]<strong><img class="alignnone wp-image-87138 size-full" src="https://mediafix.de/wp-content/uploads/2026/05/dvd-rippen-externes-dvd-laufwerk-laptop.jpg" alt="Person legt eine DVD in ein externes DVD-Laufwerk ein, das per Kabel mit einem Laptop verbunden ist" width="1000" height="667" /></strong>
+
+<strong>Wer DVDs rippen möchte, hat ein klares Ziel: Filme, Serien oder private Aufnahmen dauerhaft digital sichern – z. B. auf Festplatte oder USB-Stick. Was nach wenigen Klicks klingt, steckt in der Praxis voller Fallstricke: fehlende Laufwerke, abgebrochene Vorgänge, unleserliche Datenträger.</strong>
+
+<strong>Dieser Artikel erklärt, was DVD rippen bedeutet, welche Software sich wirklich eignet, wie der Prozess Schritt für Schritt funktioniert und wann es sinnvoller ist, die Arbeit professionell erledigen zu lassen.
+</strong>
+
+<hr />
+
+<strong>Inhaltsverzeichnis</strong>
+
+<a href="#wasbedeutetdvdrippen">Was bedeutet „DVD rippen"?</a>
+
+<a href="#wassiezumrippenbrauchen">Was Sie zum Rippen brauchen</a>
+
+<a href="#dvdrippenanleitung">DVD rippen: Schritt-für-Schritt-Anleitung</a>
+
+<a href="#dvdauffestplatte">DVD auf Festplatte kopieren</a>
+
+<a href="#dvdaufusb">DVD auf USB-Stick kopieren</a>
+
+<a href="#dvdrippervergleich">Die besten DVD-Ripper im Vergleich</a>
+
+<a href="#welchesformat">Welches Format ist das Richtige?</a>
+
+<a href="#dvdsmitkopierschutz">Was bei kopiergeschützten DVDs zu beachten ist
+</a>
+
+<a href="#haeufigeprobleme">Häufige Probleme und Lösungen</a>
+
+<a href="#wannprofessionelldigitalisieren">Wann lohnt sich professionelle Digitalisierung?</a>
+
+<hr />
+
+<h2 id="wassiezumrippenbrauchen">Was bedeutet „DVD rippen"?</h2>
+DVD rippen heißt, den Inhalt einer DVD auszulesen und als digitale Datei auf einem Datenträger zu speichern. Das Ergebnis ist meist eine MP4- oder MKV-Datei, die sich ohne Disc abspielen lässt.
+
+Im Alltag werden drei Begriffe oft durcheinandergeworfen:
+<table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>Was passiert</th>
+<th>Typisches Ergebnis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DVD rippen</td>
+<td>Inhalt auslesen und in ein Dateiformat umwandeln</td>
+<td>MP4, MKV oder ähnliche Dateien</td>
+</tr>
+<tr>
+<td>DVD kopieren (auf Festplatte/USB)</td>
+<td>Disc-Struktur 1:1 übertragen</td>
+<td>VOB-Ordner oder ISO-Abbild</td>
+</tr>
+<tr>
+<td>DVD digitalisieren</td>
+<td>Inhalt dauerhaft und archivtauglich sichern</td>
+<td>Qualitätsoptimierte Datei für Langzeitspeicherung</td>
+</tr>
+</tbody>
+</table>
+Wer seine DVD-Sammlung auf der Festplatte oder einem USB-Stick haben möchte, meint in der Regel das Rippen oder Digitalisieren in ein gängiges Videoformat.
+<h2 id="wassiezumrippenbrauchen">Was Sie zum Rippen brauchen</h2>
+Für den Einstieg brauchen Sie vier Dinge:
+<ul>
+ 	<li><strong>Ein DVD-Laufwerk:</strong> Die meisten modernen Laptops haben kein optisches Laufwerk mehr. Ein externes USB-DVD-Laufwerk gibt es bereits ab etwa 20–30 Euro und funktioniert mit jedem Betriebssystem.</li>
+ 	<li><strong>Ausreichend Speicherplatz:</strong> Ein gerippter Spielfilm in MP4-Qualität belegt je nach Einstellungen zwischen 1 und 5 GB. Planen Sie großzügig, besonders wenn Sie mehrere DVDs verarbeiten möchten.</li>
+ 	<li><strong>Die richtige Software:</strong> Welches Programm am besten passt, hängt vom Betriebssystem und dem gewünschten Ergebnis ab. Die wichtigsten Tools finden Sie weiter unten im Vergleich.</li>
+ 	<li><strong>Eine lesbare DVD:</strong> Kratzer, Alterungsschäden oder Schimmelbefall können dazu führen, dass eine DVD gar nicht oder nur fehlerhaft ausgelesen werden kann. In diesen Fällen hilft auch die beste Software nicht mehr weiter.</li>
+</ul>
+<h2 id="dvdrippenanleitung">DVD rippen: Schritt-für-Schritt-Anleitung</h2>
+Der grundlegende Ablauf ist bei den meisten Programmen gleich:[/vc_column_text][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">1</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>DVD einlegen und erkennen lassen:</strong> Legen Sie die Disc ins Laufwerk. Warten Sie, bis das Betriebssystem sie erkannt hat. Manche Programme erkennen die DVD automatisch beim Start.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">2</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Ripper-Software öffnen:</strong> Starten Sie Ihr Programm (z. B. HandBrake oder MakeMKV) und wählen Sie als Quelle das DVD-Laufwerk aus.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">3</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Inhalt auswählen:</strong> Die meisten DVDs enthalten mehrere Titel (Hauptfilm, Extras, Menü-Schleifen). Wählen Sie den Haupttitel aus – er ist in der Regel der mit der längsten Laufzeit.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">4</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Ausgabeformat festlegen:</strong> Für alltägliche Nutzung (Smartphone, TV, Laptop) ist MP4 mit H.264-Codec die sicherste Wahl. Wer mehrere Tonspuren oder Untertitel erhalten will, nimmt MKV.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">5</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Qualitätseinstellungen anpassen:</strong> Bei HandBrake empfiehlt sich ein RF-Wert von 18–22: RF 18 entspricht sehr hoher Qualität bei größerer Datei, RF 22 ist etwas kompakter, aber für die meisten Bildschirme kaum zu unterscheiden.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">6</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Speicherort wählen und starten:</strong> Wählen Sie einen Ordner auf der Festplatte oder direkt auf einem USB-Stick als Zielort, dann starten Sie den Rip-Vorgang.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner][vc_column_inner width="1/6"][vc_column_text css=""]
+<p style="text-align: center;"><span style="font-size: 40px; color: #90ad25; font-weight: 800;">7</span></p>
+[/vc_column_text][/vc_column_inner][vc_column_inner width="5/6"][vc_column_text css=""]<strong>Ergebnis prüfen:</strong> Nach Abschluss: Datei abspielen, Bild und Ton kontrollieren, Kapitelwechsel testen. Nicht jede abgeschlossene Konvertierung ist automatisch fehlerfrei – besonders bei älteren Medien.[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_column_text css=""]
+<h2 id="dvdauffestplatte">DVD auf Festplatte kopieren</h2>
+Wer den Inhalt einer DVD vollständig und originalgetreu auf einer externen Festplatte sichern möchte, hat zwei Möglichkeiten:
+
+<strong>Als ISO-Abbild:</strong> Eine ISO-Datei ist eine 1:1-Kopie der gesamten Disc-Struktur. Sie enthält Menü, alle Tonspuren, Untertitel und Extras – genau so, wie die DVD ursprünglich aufgebaut war. Vorteil: Kein Qualitätsverlust, vollständige Erhaltung. Nachteil: Die Dateigröße entspricht der kompletten DVD (4–8 GB), und für die Wiedergabe braucht man einen Player, der ISO-Dateien unterstützt (z. B. VLC).
+
+<strong>Als VIDEO_TS-Ordner:</strong> Alternativ lässt sich die DVD-Struktur als Ordner mit VOB-, IFO- und BUP-Dateien kopieren. Das entspricht dem, was auf der DVD physisch vorhanden ist, und lässt sich mit den meisten Media-Playern abspielen.
+
+Für beide Varianten eignet sich MakeMKV oder DVDFab. Wer nur den Film ohne Extras und Menüs benötigt, ist mit einer einfachen MP4-Konvertierung besser bedient.
+<h2 id="dvdaufusb">DVD auf USB-Stick kopieren</h2>
+Grundsätzlich funktioniert das genauso wie auf eine Festplatte – mit einem wichtigen Hinweis: Das Dateisystem des USB-Sticks muss die Datei unterstützen.
+
+Viele USB-Sticks sind ab Werk mit FAT32 formatiert. FAT32 hat eine Dateigrößenbeschränkung von 4 GB. Eine typische DVD im ISO-Format oder als unkomprimierte MKV-Datei kann diese Grenze überschreiten.
+
+<strong>Lösung:</strong> USB-Stick mit exFAT oder NTFS formatieren. Beide Formate unterstützen Dateien über 4 GB und funktionieren unter Windows, macOS und den meisten Smart-TVs problemlos.
+
+Danach: Gerippte MP4- oder MKV-Datei per Drag-and-drop auf den Stick kopieren – fertig.
+<h2 id="dvdrippervergleich">Die besten DVD-Ripper im Vergleich</h2>
+<h3>HandBrake (kostenlos, Windows/Mac/Linux)</h3>
+HandBrake ist der bekannteste kostenlose DVD-Ripper und für die meisten Alltagsaufgaben ausreichend. Die Oberfläche wirkt anfangs etwas technisch, ist aber gut dokumentiert. Besonders stark: die Encoder-Auswahl (H.264, H.265, AV1) und die frei konfigurierbaren Qualitätseinstellungen.
+<ul class="advantages">
+ 	<li><strong>Stärken:</strong> kostenlos, stabil, breite Formatunterstützung, GPU-Beschleunigung möglich</li>
+</ul>
+<ul class="disadvantages">
+ 	<li><strong>Schwächen:</strong> unterstützt von Haus aus keine kopiergeschützten DVDs</li>
+</ul>
+<strong>Ideal für:</strong> DVDs, die nicht kopiergeschützt sind, etwas technikaffine Nutzer
+
+&nbsp;
+
+<img class="handbrake alignnone wp-image-87145" src="https://mediafix.de/wp-content/uploads/2026/05/handbrake-benutzeroberflaeche-300x179.jpg" alt="HandBrake-Benutzeroberfläche auf Mac mit technischen Einstellungsmöglichkeiten" width="700" height="419" />
+
+HandBrake-Benutzeroberfläche
+
+&nbsp;
+<h3>MakeMKV (kostenlos in der Beta, Windows/Mac/Linux)</h3>
+MakeMKV kann kopiergeschützte DVDs auslesen und wandelt sie direkt in MKV-Dateien um – ohne Neukodierung, also ohne Qualitätsverlust und sehr schnell. Das ist der größte Vorteil gegenüber HandBrake.
+<ul class="advantages">
+ 	<li><strong>Stärken:</strong> schnell, verlustfrei, unterstützt CSS-Kopierschutz, erhält alle Ton- und Untertitelspuren</li>
+</ul>
+<ul class="disadvantages">
+ 	<li><strong>Schwächen:</strong> nur MKV als Ausgabeformat; Beta-Version erfordert monatliche Erneuerung des Freischaltcodes</li>
+</ul>
+<strong>Ideal für:</strong> Archivierung, wer alle Spuren erhalten will, erster Schritt vor MP4-Konvertierung
+<h3>VLC Media Player (kostenlos, Windows/Mac/Linux)</h3>
+VLC kann DVDs nicht nur abspielen, sondern auch rippen – über Datei → Konvertieren/Streamen. Die Funktion ist weniger bekannt, aber praktisch für gelegentliche Nutzung ohne extra Software.
+<ul class="advantages">
+ 	<li><strong>Stärken:</strong> bereits installiert bei vielen Nutzern, kein zusätzlicher Download nötig</li>
+</ul>
+<ul class="disadvantages">
+ 	<li><strong>Schwächen:</strong> begrenzte Einstellmöglichkeiten, kein Batch-Betrieb</li>
+</ul>
+<strong>Ideal für:</strong> schnelles Rippen einzelner DVDs ohne technischen Anspruch
+<h3>DVDFab (kostenpflichtig, Windows/Mac)</h3>
+DVDFab ist eine kommerzielle Komplettlösung – leistungsstark, mit moderner Oberfläche und breiter Kopierschutz-Unterstützung. Die kostenlose Testversion ist zeitlich begrenzt.
+<ul class="advantages">
+ 	<li><strong>Stärken:</strong> sehr benutzerfreundlich, unterstützt nahezu alle Schutzformate, regelmäßige Updates</li>
+</ul>
+<ul class="disadvantages">
+ 	<li><strong>Schwächen:</strong> kostenpflichtig (ca. 50–80 € je nach Lizenz)</li>
+</ul>
+<strong>Ideal für:</strong> Einsteiger, die viel rippen wollen, und wer Komfort über Preis stellt
+<h3>Kurzübersicht</h3>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Preis</th>
+<th>Kopierschutz</th>
+<th>Ausgabeformat</th>
+<th>Ideal für</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HandBrake</td>
+<td>kostenlos</td>
+<td>nein (ohne Zusatz)</td>
+<td>MP4, MKV, weitere</td>
+<td>Technikaffine, ungeschützte DVDs</td>
+</tr>
+<tr>
+<td>MakeMKV</td>
+<td>kostenlos (Beta)</td>
+<td>ja (CSS)</td>
+<td>MKV</td>
+<td>Archivierung, verlustfreies Rippen</td>
+</tr>
+<tr>
+<td>VLC</td>
+<td>kostenlos</td>
+<td>eingeschränkt</td>
+<td>MP4, MKV, weitere</td>
+<td>Gelegentliches Rippen</td>
+</tr>
+<tr>
+<td>DVDFab</td>
+<td>kostenpflichtig</td>
+<td>ja (umfassend)</td>
+<td>MP4, MKV, ISO</td>
+<td>Einsteiger, komfortabler Workflow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="welchesformat">Welches Format ist das Richtige?</h2>
+<strong>MP4</strong> ist für die meisten Nutzer die beste Wahl: kompatibel mit Smartphones, Smart-TVs, Tablets und allen gängigen Playern, gutes Verhältnis aus Qualität und Dateigröße.
+
+<strong>MKV</strong> eignet sich besser für Archivierung: Es unterstützt mehrere Tonspuren und Untertitel in einer Datei und ist verlustfrei aus MakeMKV exportierbar.
+
+<strong>ISO</strong> bewahrt die vollständige Disc-Struktur – sinnvoll, wenn man auf Menüs, Extras oder eine absolut originaltreue Kopie angewiesen ist. Weniger alltagstauglich für die tägliche Nutzung.
+<h2 id="dvdsmitkopierschutz">Was bei kopiergeschützten DVDs zu beachten ist</h2>
+Die meisten kommerziellen DVDs – Kinofilme, Serien-Boxen – sind mit CSS (Content Scramble System) verschlüsselt. Das verhindert, dass HandBrake sie direkt auslesen kann.[/vc_column_text][vc_message message_box_color="grey" css="" el_id="info"]<strong>Zur Rechtslage in Deutschland:</strong> Das private Kopieren von DVDs zum eigenen Gebrauch ist grundsätzlich durch das Urheberrecht (§ 53 UrhG) gedeckt – jedoch nur, wenn keine „wirksame technische Schutzmaßnahme" umgangen wird. Das Umgehen von CSS ist nach deutschem Recht rechtlich umstritten. Für private Sicherungskopien eigener DVDs besteht in der Praxis ein erheblicher Graubereich, der von Gerichten unterschiedlich bewertet wurde. Kommerzielle Nutzung oder Weitergabe ist klar unzulässig.[/vc_message][vc_column_text css=""]Wer seine eigenen DVDs für den privaten Gebrauch sichern möchte, findet mit MakeMKV oder DVDFab die gängigsten technischen Lösungen. Für alles, was darüber hinausgeht, ist professionelle Beratung sinnvoll.
+<h2 id="haeufigeprobleme">Häufige Probleme und Lösungen</h2>
+<ul class="disadvantages">
+ 	<li><strong>DVD wird nicht erkannt:</strong> Laufwerk-Treiber prüfen, DVD reinigen (weicher Tuch, von innen nach außen wischen), anderen USB-Anschluss probieren, oder ein anderes Laufwerk testen.</li>
+ 	<li><strong>Rip-Vorgang bricht ab:</strong> Meist ein Lesefehler auf der Disc. Oberfläche reinigen. Wenn das nicht hilft: MakeMKV statt HandBrake versuchen, da es toleranter mit fehlerhaften Sektoren umgeht. In unserer täglichen Arbeit sehen wir regelmäßig DVDs, die kein Consumer-Tool mehr lesen kann – in diesen Fällen hilft nur professionell <a href="https://mediafix.de/cd-dvd-digitalisieren/">Datenträger überspielen.</a></li>
+ 	<li><strong>Bild und Ton sind nicht synchron:</strong> Kann durch falsche Codec-Einstellungen entstehen. HandBrake: H.264 + AAC-Kombination wählen, keine exotischen Codecs.</li>
+ 	<li><strong>Datei läuft nicht auf dem TV:</strong> Viele Smart-TVs haben Einschränkungen bei MKV-Dateien. In diesem Fall: MP4 mit H.264-Codec wählen – das ist die breiteste Kompatibilität.</li>
+ 	<li><strong>Datei zu groß für USB-Stick:</strong> Stick mit exFAT formatieren (keine 4-GB-Grenze wie bei FAT32). Alternativ: Qualitätseinstellung in HandBrake etwas reduzieren (höherer RF-Wert).</li>
+</ul>
+<h2 id="wannprofessionelldigitalisieren">Wann lohnt sich professionelle Digitalisierung?</h2>
+Das Selbst-Rippen stößt an Grenzen, wenn:
+<ul>
+ 	<li><strong>DVDs beschädigt sind</strong> – Kratzer, Schimmel oder Materialbruch lassen sich mit Consumer-Software nicht beheben</li>
+ 	<li><strong>Viele DVDs auf einmal</strong> digitalisiert werden sollen – der Zeitaufwand für ein Dutzend Discs ist erheblich</li>
+ 	<li><strong>Originalqualität entscheidend ist</strong> – z. B. bei unveröffentlichten Familienfilmen oder archivierten Aufnahmen</li>
+ 	<li><strong>Das nötige Equipment fehlt</strong> – kein Laufwerk, kein passender PC</li>
+</ul>
+<img class="alignright wp-image-87159" src="https://mediafix.de/wp-content/uploads/2026/05/alte-cds-dvds-gestapelt-300x270.jpg" alt="Stapel alter DVDs und CDs in Jewel Cases, teils verschmutzt und zerkratzt" width="180" height="162" />MEDIAFIX hat die Erfahrung aus über [mf-counter show="media" round="on"] Millionen digitalisierten Medien. Wir digitalisieren DVDs und CDs professionell mit selbstentwickelten Geräten, die auch beschädigte oder schwer lesbare Medien zuverlässig verarbeiten.
+
+Haben Sie Fragen zur Digitalisierung Ihrer Datenträger? Gerne beraten wir Sie zu Ihrem Auftrag unter Tel.: [cgv telefon_kundenservice].
+
+Unsere Telefonzeiten sind:
+
+Mo-Do [cgv öffnungszeiten1]
+Fr  [cgv öffnungszeiten2][/vc_column_text][vc_column_text css=""]<a class="button" href="https://mediafix.de/cd-dvd-digitalisieren/">Jetzt Datenträger digitalisieren</a>[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_raw_html css=""]JTNDc2NyaXB0JTIwdHlwZSUzRCUyMmFwcGxpY2F0aW9uJTJGbGQlMkJqc29uJTIyJTNFJTBBJTdCJTBBJTIwJTIwJTIyJTQwY29udGV4dCUyMiUzQSUyMCUyMmh0dHBzJTNBJTJGJTJGc2NoZW1hLm9yZyUyMiUyQyUwQSUyMCUyMCUyMiU0MHR5cGUlMjIlM0ElMjAlMjJGQVFQYWdlJTIyJTJDJTBBJTIwJTIwJTIybWFpbkVudGl0eSUyMiUzQSUyMCU1QiUwQSUyMCUyMCUyMCUyMCU3QiUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMiU0MHR5cGUlMjIlM0ElMjAlMjJRdWVzdGlvbiUyMiUyQyUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMm5hbWUlMjIlM0ElMjAlMjJJc3QlMjBEVkQlMjByaXBwZW4lMjBsZWdhbCUzRiUyMiUyQyUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMmFjY2VwdGVkQW5zd2VyJTIyJTNBJTIwJTdCJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIyJTQwdHlwZSUyMiUzQSUyMCUyMkFuc3dlciUyMiUyQyUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMnRleHQlMjIlM0ElMjAlMjJEYXMlMjBwcml2YXRlJTIwS29waWVyZW4lMjB2b24lMjBEVkRzJTIwenVtJTIwZWlnZW5lbiUyMEdlYnJhdWNoJTIwaXN0JTIwZ3J1bmRzJUMzJUE0dHpsaWNoJTIwZHVyY2glMjAlQzIlQTclMjA1MyUyMFVyaEclMjBnZWRlY2t0JTIwJUUyJTgwJTkzJTIwamVkb2NoJTIwbnVyJTJDJTIwd2VubiUyMGtlaW5lJTIwd2lya3NhbWUlMjB0ZWNobmlzY2hlJTIwU2NodXR6bWElQzMlOUZuYWhtZSUyMHVtZ2FuZ2VuJTIwd2lyZC4lMjBEYXMlMjBVbWdlaGVuJTIwdm9uJTIwQ1NTLUtvcGllcnNjaHV0eiUyMGlzdCUyMG5hY2glMjBkZXV0c2NoZW0lMjBSZWNodCUyMHJlY2h0bGljaCUyMHVtc3RyaXR0ZW4uJTIwS29tbWVyemllbGxlJTIwTnV0enVuZyUyMG9kZXIlMjBXZWl0ZXJnYWJlJTIwaXN0JTIwa2xhciUyMHVuenVsJUMzJUE0c3NpZy4lMjIlMEElMjAlMjAlMjAlMjAlMjAlMjAlN0QlMEElMjAlMjAlMjAlMjAlN0QlMkMlMEElMjAlMjAlMjAlMjAlN0IlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjIlNDB0eXBlJTIyJTNBJTIwJTIyUXVlc3Rpb24lMjIlMkMlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjJuYW1lJTIyJTNBJTIwJTIyV2VsY2hlcyUyMEZvcm1hdCUyMGlzdCUyMGFtJTIwYmVzdGVuJTIwZiVDMyVCQ3IlMjBkZW4lMjBGZXJuc2VoZXIlM0YlMjIlMkMlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjJhY2NlcHRlZEFuc3dlciUyMiUzQSUyMCU3QiUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMiU0MHR5cGUlMjIlM0ElMjAlMjJBbnN3ZXIlMjIlMkMlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjJ0ZXh0JTIyJTNBJTIwJTIyTVA0JTIwbWl0JTIwSC4yNjQtQ29kZWMlMjBoYXQlMjBkaWUlMjBicmVpdGVzdGUlMjBLb21wYXRpYmlsaXQlQzMlQTR0JTIwbWl0JTIwU21hcnQtVFZzJTIwdW5kJTIwZnVua3Rpb25pZXJ0JTIwYXVmJTIwbmFoZXp1JTIwYWxsZW4lMjBHZXIlQzMlQTR0ZW4uJTIwTUtWJTIwd2lyZCUyMHZvbiUyMHZpZWxlbiUyMEdlciVDMyVBNHRlbiUyMGViZW5mYWxscyUyMHVudGVyc3QlQzMlQkN0enQlMkMlMjBhYmVyJTIwbmljaHQlMjB2b24lMjBhbGxlbi4lMjBGJUMzJUJDciUyMGRpZSUyMGdyJUMzJUI2JUMzJTlGdG0lQzMlQjZnbGljaGUlMjBLb21wYXRpYmlsaXQlQzMlQTR0JTIwZW1wZmllaGx0JTIwc2ljaCUyMGRhaGVyJTIwTVA0LiUyMiUwQSUyMCUyMCUyMCUyMCUyMCUyMCU3RCUwQSUyMCUyMCUyMCUyMCU3RCUyQyUwQSUyMCUyMCUyMCUyMCU3QiUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMiU0MHR5cGUlMjIlM0ElMjAlMjJRdWVzdGlvbiUyMiUyQyUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMm5hbWUlMjIlM0ElMjAlMjJXaWUlMjBsYW5nZSUyMGRhdWVydCUyMGRhcyUyMFJpcHBlbiUyMGVpbmVyJTIwRFZEJTNGJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyYWNjZXB0ZWRBbnN3ZXIlMjIlM0ElMjAlN0IlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjIlNDB0eXBlJTIyJTNBJTIwJTIyQW5zd2VyJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIydGV4dCUyMiUzQSUyMCUyMkplJTIwbmFjaCUyMFNvZnR3YXJlJTIwdW5kJTIwUEMtTGVpc3R1bmclMjBkYXVlcnQlMjBkYXMlMjBSaXBwZW4lMjBlaW5lcyUyMFNwaWVsZmlsbXMlMjB6d2lzY2hlbiUyMDIwJTIwTWludXRlbiUyMHVuZCUyMDIlMjBTdHVuZGVuLiUyME1pdCUyMEdQVS1CZXNjaGxldW5pZ3VuZyUyMGluJTIwSGFuZEJyYWtlJTIwa2FubiUyMGRlciUyMFZvcmdhbmclMjBkZXV0bGljaCUyMHNjaG5lbGxlciUyMGFiZ2VzY2hsb3NzZW4lMjB3ZXJkZW4uJTIyJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTdEJTBBJTIwJTIwJTIwJTIwJTdEJTJDJTBBJTIwJTIwJTIwJTIwJTdCJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyJTQwdHlwZSUyMiUzQSUyMCUyMlF1ZXN0aW9uJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIybmFtZSUyMiUzQSUyMCUyMkthbm4lMjBtYW4lMjBlaW5lJTIwRFZEJTIwZGlyZWt0JTIwYXVmJTIwZWluZW4lMjBVU0ItU3RpY2slMjByaXBwZW4lM0YlMjIlMkMlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjJhY2NlcHRlZEFuc3dlciUyMiUzQSUyMCU3QiUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMiU0MHR5cGUlMjIlM0ElMjAlMjJBbnN3ZXIlMjIlMkMlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjJ0ZXh0JTIyJTNBJTIwJTIySmEuJTIwRGVuJTIwVVNCLVN0aWNrJTIwdm9yaGVyJTIwbWl0JTIwZXhGQVQlMjBvZGVyJTIwTlRGUyUyMGZvcm1hdGllcmVuJTJDJTIwZGFtaXQlMjBEYXRlaWVuJTIwJUMzJUJDYmVyJTIwNCUyMEdCJTIwZ2VzcGVpY2hlcnQlMjB3ZXJkZW4lMjBrJUMzJUI2bm5lbiUyMCVFMiU4MCU5MyUyMHZpZWxlJTIwU3RpY2tzJTIwc2luZCUyMGFiJTIwV2VyayUyMG1pdCUyMEZBVDMyJTIwZm9ybWF0aWVydCUyQyUyMGRhcyUyMGVpbmUlMjBEYXRlaWdyJUMzJUI2JUMzJTlGZW5iZXNjaHIlQzMlQTRua3VuZyUyMHZvbiUyMDQlMjBHQiUyMGhhdC4lMjBEYW5hY2glMjBkaWUlMjBnZXJpcHB0ZSUyME1QNC0lMjBvZGVyJTIwTUtWLURhdGVpJTIwcGVyJTIwRHJhZy1hbmQtZHJvcCUyMGF1ZiUyMGRlbiUyMFN0aWNrJTIwa29waWVyZW4uJTIyJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTdEJTBBJTIwJTIwJTIwJTIwJTdEJTJDJTBBJTIwJTIwJTIwJTIwJTdCJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyJTQwdHlwZSUyMiUzQSUyMCUyMlF1ZXN0aW9uJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIybmFtZSUyMiUzQSUyMCUyMldhcyUyMHR1biUyQyUyMHdlbm4lMjBkZXIlMjBSaXAtVm9yZ2FuZyUyMG5pY2h0JTIwZnVua3Rpb25pZXJ0JTNGJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyYWNjZXB0ZWRBbnN3ZXIlMjIlM0ElMjAlN0IlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjIlNDB0eXBlJTIyJTNBJTIwJTIyQW5zd2VyJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIydGV4dCUyMiUzQSUyMCUyMlp1biVDMyVBNGNoc3QlMjBkaWUlMjBEVkQtT2JlcmZsJUMzJUE0Y2hlJTIwcmVpbmlnZW4lMjB1bmQlMjBlaW5lbiUyMGFuZGVyZW4lMjBVU0ItQW5zY2hsdXNzJTIwb2RlciUyMGVpbiUyMGFuZGVyZXMlMjBMYXVmd2VyayUyMHRlc3Rlbi4lMjBTdGF0dCUyMEhhbmRCcmFrZSUyMGthbm4lMjBNYWtlTUtWJTIwdmVyc3VjaHQlMjB3ZXJkZW4lMkMlMjBkYSUyMGVzJTIwdG9sZXJhbnRlciUyMG1pdCUyMGZlaGxlcmhhZnRlbiUyMFNla3RvcmVuJTIwdW1nZWh0LiUyMFdlbm4lMjBkaWUlMjBEVkQlMjBwaHlzaXNjaCUyMGJlc2NoJUMzJUE0ZGlndCUyMGlzdCUyQyUyMGhpbGZ0JTIwb2Z0JTIwbnVyJTIwcHJvZmVzc2lvbmVsbGUlMjBEaWdpdGFsaXNpZXJ1bmcuJTIyJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTdEJTBBJTIwJTIwJTIwJTIwJTdEJTJDJTBBJTIwJTIwJTIwJTIwJTdCJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyJTQwdHlwZSUyMiUzQSUyMCUyMlF1ZXN0aW9uJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIybmFtZSUyMiUzQSUyMCUyMldhcyUyMGlzdCUyMGRlciUyMFVudGVyc2NoaWVkJTIwendpc2NoZW4lMjBEVkQlMjByaXBwZW4lMkMlMjBrb3BpZXJlbiUyMHVuZCUyMGRpZ2l0YWxpc2llcmVuJTNGJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIyYWNjZXB0ZWRBbnN3ZXIlMjIlM0ElMjAlN0IlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjIlNDB0eXBlJTIyJTNBJTIwJTIyQW5zd2VyJTIyJTJDJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIydGV4dCUyMiUzQSUyMCUyMkRWRCUyMHJpcHBlbiUyMGJlZGV1dGV0JTJDJTIwZGVuJTIwSW5oYWx0JTIwZGVyJTIwRFZEJTIwYXVzenVsZXNlbiUyMHVuZCUyMGFscyUyMERhdGVpJTIwJTI4ei4lMjBCLiUyME1QNCUyMG9kZXIlMjBNS1YlMjklMjB6dSUyMHNwZWljaGVybi4lMjBEVkQlMjBrb3BpZXJlbiUyMGVyc3RlbGx0JTIwZWluZSUyMDElM0ExLUtvcGllJTIwZGVyJTIwRGlzYy1TdHJ1a3R1ciUyMGFscyUyMFZPQi1PcmRuZXIlMjBvZGVyJTIwSVNPLUFiYmlsZC4lMjBEVkQlMjBkaWdpdGFsaXNpZXJlbiUyMG1laW50JTIwZGllJTIwZGF1ZXJoYWZ0ZSUyMCVDMyU5Q2JlcmYlQzMlQkNocnVuZyUyMGluJTIwZWluJTIwYXJjaGl2dGF1Z2xpY2hlcyUyMGRpZ2l0YWxlcyUyMEZvcm1hdCUyMCVFMiU4MCU5MyUyMG9mdCUyMG1pdCUyMFF1YWxpdCVDMyVBNHRzb3B0aW1pZXJ1bmclMjBmJUMzJUJDciUyMGRpZSUyMExhbmd6ZWl0c3BlaWNoZXJ1bmcuJTIyJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTdEJTBBJTIwJTIwJTIwJTIwJTdEJTBBJTIwJTIwJTVEJTBBJTdEJTBBJTNDJTJGc2NyaXB0JTNF[/vc_raw_html][/vc_column][/vc_row]
