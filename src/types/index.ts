@@ -78,14 +78,12 @@ export const LOCALES = [
   { value: 'de-AT' as const, label: 'Österreich', flag: '🇦🇹' },
   { value: 'de-CH' as const, label: 'Schweiz DE', flag: '🇨🇭' },
   { value: 'en-GB' as const, label: 'UK / IE', flag: '🇬🇧' },
-  { value: 'en-US' as const, label: 'USA', flag: '🇺🇸' },
   { value: 'nl-NL' as const, label: 'Nederland', flag: '🇳🇱' },
   { value: 'nl-BE' as const, label: 'België NL', flag: '🇧🇪' },
   { value: 'fr-FR' as const, label: 'France', flag: '🇫🇷' },
   { value: 'fr-BE' as const, label: 'Belgique FR', flag: '🇧🇪' },
   { value: 'fr-CH' as const, label: 'Schweiz FR', flag: '🇨🇭' },
   { value: 'it-IT' as const, label: 'Italia', flag: '🇮🇹' },
-  { value: 'it-CH' as const, label: 'Schweiz IT', flag: '🇨🇭' },
 ];
 
 export type LocaleValue = typeof LOCALES[number]['value'];
@@ -138,14 +136,6 @@ export const LOCALE_CONFIG: Record<LocaleValue, LocaleConfig> = {
     faqHeadline: 'Frequently Asked Questions',
     expertLabel: 'Expert Tip', expertBadge: 'Data Recovery<br>Expert', expertJobTitle: 'MEDIAFIX Data Recovery Expert',
   },
-  'en-US': {
-    locationName: 'United States', languageName: 'English', whisperLang: 'en',
-    contentLang: 'Englisch (US)',
-    tocTitle: 'Table of Contents', tocToggleHide: 'Hide', tocToggleShow: 'Show',
-    readTimeFn: (m) => `Reading time: approx. ${m} minutes`,
-    faqHeadline: 'Frequently Asked Questions',
-    expertLabel: 'Expert Tip', expertBadge: 'Data Recovery<br>Expert', expertJobTitle: 'MEDIAFIX Data Recovery Expert',
-  },
   'nl-NL': {
     locationName: 'Netherlands', languageName: 'Dutch', whisperLang: 'nl',
     contentLang: 'Niederländisch',
@@ -189,14 +179,6 @@ export const LOCALE_CONFIG: Record<LocaleValue, LocaleConfig> = {
   'it-IT': {
     locationName: 'Italy', languageName: 'Italian', whisperLang: 'it',
     contentLang: 'Italienisch',
-    tocTitle: 'Indice', tocToggleHide: 'Nascondi', tocToggleShow: 'Mostra',
-    readTimeFn: (m) => `Tempo di lettura: circa ${m} minuti`,
-    faqHeadline: 'Domande frequenti',
-    expertLabel: 'Consiglio esperto', expertBadge: 'Esperto recupero<br>dati', expertJobTitle: 'MEDIAFIX Esperto recupero dati',
-  },
-  'it-CH': {
-    locationName: 'Switzerland', languageName: 'Italian', whisperLang: 'it',
-    contentLang: 'Italienisch (Schweiz)',
     tocTitle: 'Indice', tocToggleHide: 'Nascondi', tocToggleShow: 'Mostra',
     readTimeFn: (m) => `Tempo di lettura: circa ${m} minuti`,
     faqHeadline: 'Domande frequenti',

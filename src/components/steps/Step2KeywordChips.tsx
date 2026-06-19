@@ -113,6 +113,10 @@ export default function Step2KeywordChips({
             <span className="rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-800">H</span>
             hohe Konkurrenz
           </span>
+          <span className="flex items-center gap-1">
+            <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-600">U</span>
+            Konkurrenz unbekannt
+          </span>
         </div>
       </div>
 

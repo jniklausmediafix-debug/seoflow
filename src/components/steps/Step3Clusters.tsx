@@ -43,13 +43,13 @@ export default function Step3Clusters({ clusters, selectedCluster, serpResults, 
           <h2 className="text-lg font-semibold text-slate-900">Keyword-Cluster auswählen</h2>
           <button
             onClick={() => { setMergeMode((v) => !v); setMergeIds(new Set()); }}
-            className={`rounded-md border px-3 py-1 text-xs font-medium transition-colors
+            className={`rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors
               ${mergeMode
                 ? 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100'
-                : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                : 'border-brand-300 bg-brand-50 text-brand-700 hover:bg-brand-100'
               }`}
           >
-            {mergeMode ? 'Abbrechen' : 'Cluster kombinieren'}
+            {mergeMode ? '✕ Abbrechen' : '⊕ Cluster kombinieren'}
           </button>
         </div>
         <p className="text-sm text-slate-500 mb-5">

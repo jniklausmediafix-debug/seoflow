@@ -60,7 +60,7 @@ export default function Step1Keywords({ onSearch, isLoading, error, locale, onLo
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="z.B. Dachdecker Wien, Zahnimplantat Kosten, …"
+            placeholder="z.B. Festplatte Datenrettung, VHS digitalisieren Kosten, …"
             className="input-field"
             disabled={isLoading}
             autoFocus
