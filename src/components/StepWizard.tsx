@@ -8,6 +8,7 @@ import Step3Clusters from './steps/Step3Clusters';
 import Step4VoiceInput from './steps/Step4VoiceInput';
 import Step5Generate from './steps/Step5Generate';
 import Step6Revise from './steps/Step6Revise';
+import LoaderScreen from './LoaderScreen';
 
 const STEP_LABELS = [
   'Keyword-Input',
@@ -230,9 +231,14 @@ export default function StepWizard() {
     if (state.step > 1) set({ step: state.step - 1, error: null });
   };
 
+  const loaderPhase = state.step === 1 || state.step === 2 ? 'keywords'
+    : state.step === 3 ? 'cluster'
+    : 'generate';
+
   // ── Step-Indicator ───────────────────────────────────────────────────────
   return (
     <div className="flex flex-col gap-8">
+      <LoaderScreen isLoading={state.isLoading} phase={loaderPhase} />
       {/* Step Indicator */}
       <nav aria-label="Fortschritt">
         <ol className="flex items-center gap-0">
