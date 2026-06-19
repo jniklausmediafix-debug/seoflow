@@ -94,7 +94,7 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
           {/* Overlay: covers the static 78%-bar in the image */}
           <div
             className="absolute overflow-hidden rounded-full bg-white"
-            style={{ top: '81%', left: '6.5%', width: '87%', height: '5.5%' }}
+            style={{ top: '79%', left: '6.5%', width: '87%', height: '7%' }}
           >
             <div
               className="h-full rounded-full transition-all duration-300 ease-out"
