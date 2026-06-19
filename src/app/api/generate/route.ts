@@ -403,11 +403,14 @@ Firefly: [...]
 // ── TOC + FAQ builder (server-side, data-driven) ─────────────────────────────
 
 function buildTocJs(lc: LocaleConfig): string {
-  const script = `<script>function toggleToc(){var t=document.getElementById("mfToc");var l=t.querySelector(".mf-toc__toggle");t.classList.toggle("collapsed");l.textContent=t.classList.contains("collapsed")?"${lc.tocToggleShow}":"${lc.tocToggleHide}";}</script>`;
+  const script = `<script>document.addEventListener('click',function(e){if(!e.target.closest('.mf-toc__header'))return;var t=document.getElementById('mfToc');var l=t.querySelector('.mf-toc__toggle');t.classList.toggle('collapsed');l.textContent=t.classList.contains('collapsed')?'${lc.tocToggleShow}':'${lc.tocToggleHide}';});</script>`;
   return Buffer.from(script, 'utf8').toString('base64');
 }
 
-const FAQ_JS = 'PHNjcmlwdD5mdW5jdGlvbiB0b2dnbGVGYXEodHJpZ2dlcil7dmFyIGl0ZW09dHJpZ2dlci5jbG9zZXN0KCIubWYtZmFxX19pdGVtIik7dmFyIGlzT3Blbj1pdGVtLmNsYXNzTGlzdC5jb250YWlucygib3BlbiIpO2RvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoIi5tZi1mYXFfX2l0ZW0ub3BlbiIpLmZvckVhY2goZnVuY3Rpb24oZWwpe2lmKGVsIT09aXRlbSllbC5jbGFzc0xpc3QucmVtb3ZlKCJvcGVuIik7fSk7aXRlbS5jbGFzc0xpc3QudG9nZ2xlKCJvcGVuIiwhaXNPcGVuKTt9PC9zY3JpcHQ+';
+const FAQ_JS = Buffer.from(
+  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item)el.classList.remove('open');});item.classList.toggle('open',!isOpen);});</script>`,
+  'utf8'
+).toString('base64');
 
 
 function cleanArticleHtml(html: string): string {
@@ -458,7 +461,7 @@ function buildTocHtml(headings: Array<{ id: string; text: string }>, faqCount: n
     );
   }
   return `<nav class="mf-toc" id="mfToc" aria-label="${lc.tocTitle}">
-  <div class="mf-toc__header" onclick="toggleToc()" role="button" aria-expanded="true">
+  <div class="mf-toc__header" role="button" aria-expanded="true">
     <span class="mf-toc__title">${lc.tocTitle}</span>
     <span class="mf-toc__toggle">${lc.tocToggleHide}</span>
   </div>
@@ -474,7 +477,7 @@ ${items.join('\n')}
 function buildFaqHtml(faq: Array<{ question: string; answer: string }>, lc: LocaleConfig): string {
   if (!faq.length) return '';
   const items = faq.map(f => `  <div class="mf-faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <div class="mf-faq__question" onclick="toggleFaq(this)">
+    <div class="mf-faq__question">
       <span class="mf-faq__q-text" itemprop="name">${f.question}</span>
       <span class="mf-faq__icon"></span>
     </div>
@@ -524,6 +527,17 @@ function vcImageBlock(img?: { altText?: string; fireflyPrompt?: string }): strin
     `[vc_row][vc_column][vc_single_image image="" img_size="full" alignment="center" css="" alt="${alt}"][/vc_column][/vc_row]`,
     `[vc_row][vc_column][vc_column_text css=""]`,
   ].filter(Boolean).join('\n');
+}
+
+function removeEmptyVcBlocks(html: string): string {
+  let out = html;
+  // Leere [vc_column_text ...][/vc_column_text]-Blöcke entfernen
+  out = out.replace(/\[vc_column_text[^\]]*\]\s*\[\/vc_column_text\]/g, '');
+  // Leere [vc_row][vc_column][/vc_column][/vc_row]-Blöcke entfernen
+  out = out.replace(/\[vc_row[^\]]*\]\s*\[vc_column[^\]]*\]\s*\[\/vc_column\]\s*\[\/vc_row\]/g, '');
+  // Aufeinderfolgende Leerzeilen normalisieren
+  out = out.replace(/\n{3,}/g, '\n\n');
+  return out;
 }
 
 function injectTocAndFaq(
@@ -1012,25 +1026,19 @@ Firefly: [...]`,
         await removeDeadExternalLinks(cleanArticleHtml(rawHtml)),
         [...referenceLink, ...(faqParsed.internalLinks ?? [])]
       );
-      let articleHtml = injectTocAndFaq(
+      let articleHtml = removeEmptyVcBlocks(injectTocAndFaq(
         checkedHtml,
         faqParsed.faq ?? [],
         lc,
         images,
         faqParsed.expertBio
-      );
-      // Referenz-URL garantiert im MEDIAFIX-Block einbetten, falls noch nicht im Artikel
-      if (referenceUrl?.trim() && referenceLink[0]?.anchorText) {
-        const anchor = referenceLink[0].anchorText;
-        if (!articleHtml.includes(referenceUrl)) {
-          const ctaRe = /(<a\s+class="button"\s+href="https:\/\/mediafix\.de\/")/;
-          if (ctaRe.test(articleHtml)) {
-            articleHtml = articleHtml.replace(
-              ctaRe,
-              `<p><a href="${referenceUrl}">${anchor}</a></p>\n$1`
-            );
-          }
-        }
+      ));
+      // Referenz-URL immer in CTA-Button einsetzen
+      if (referenceUrl?.trim()) {
+        articleHtml = articleHtml.replace(
+          /<a(\s+class="button"\s+href=")https:\/\/mediafix\.de\/"/g,
+          `<a$1${referenceUrl}"`
+        );
       }
 
       const schemas = buildBlogSchemas(

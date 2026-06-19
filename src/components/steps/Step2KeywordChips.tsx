@@ -44,9 +44,18 @@ export default function Step2KeywordChips({
       <div className="card">
         <div className="flex items-start justify-between mb-1">
           <h2 className="text-lg font-semibold text-slate-900">Keywords filtern</h2>
-          <span className="text-sm text-slate-500">
-            {visible.length} aktiv · {hidden.length} ausgeblendet
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-slate-500">
+              {visible.length} aktiv · {hidden.length} ausgeblendet
+            </span>
+            <button
+              onClick={onCluster}
+              disabled={isLoading || visible.length < 3}
+              className="btn-primary py-1.5 px-3 text-sm"
+            >
+              {isLoading ? '…' : `${visible.length} Keywords clustern →`}
+            </button>
+          </div>
         </div>
         <p className="text-sm text-slate-500 mb-3">
           Klicke auf irrelevante Keywords, um sie auszublenden. Die verbleibenden {visible.length} Keywords werden geclustert.
