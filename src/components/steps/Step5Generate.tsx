@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { SEOText, LocaleValue } from '@/types';
 import { LOCALES } from '@/types';
+import { COMPONENT_CSS } from '@/lib/componentCss';
 
 interface Props {
   seoText: SEOText;
@@ -290,6 +291,23 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
           readOnly
           value={htmlCode}
           rows={12}
+          className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-xs text-slate-700 focus:outline-none resize-y"
+        />
+      </div>
+
+      {/* WordPress CSS */}
+      <div className="card">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900">WordPress CSS</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Einmalig in WP → Appearance → Additional CSS einfügen</p>
+          </div>
+          <CopyButton text={COMPONENT_CSS} />
+        </div>
+        <textarea
+          readOnly
+          value={COMPONENT_CSS}
+          rows={6}
           className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-xs text-slate-700 focus:outline-none resize-y"
         />
       </div>
