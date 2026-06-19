@@ -82,25 +82,34 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm">
-      <div className="flex flex-col items-center gap-5 max-w-xl w-full px-6 text-center">
-        <img
-          src="/hans-guenter-loader.png"
-          alt="Hans-Günter lädt"
-          className="w-full max-w-[520px] select-none"
-          draggable={false}
-        />
-        <p className="text-xl font-semibold text-slate-800 min-h-[2rem] transition-all">
+      <div className="flex flex-col items-center max-w-[560px] w-full px-6 text-center">
+        {/* Image with real progress bar overlaid on the baked-in static one */}
+        <div className="relative w-full">
+          <img
+            src="/hans-guenter-loader.png"
+            alt="Hans-Günter lädt"
+            className="w-full select-none"
+            draggable={false}
+          />
+          {/* Overlay: covers the static 78%-bar in the image */}
+          <div
+            className="absolute overflow-hidden rounded-full bg-white"
+            style={{ top: '81%', left: '6.5%', width: '87%', height: '5.5%' }}
+          >
+            <div
+              className="h-full rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${pct}%`, background: '#6fbd35' }}
+            />
+            <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-800"
+              style={{ fontSize: 'clamp(10px, 1.8vw, 16px)' }}>
+              {pct}%
+            </span>
+          </div>
+        </div>
+        {/* Dynamic message — replaces the static text in the image */}
+        <p className="text-base font-semibold text-slate-700 -mt-[6%] mb-[6%] px-4">
           {messages[msgIndex]}
         </p>
-        <div className="relative w-full max-w-[520px] h-9 rounded-full overflow-hidden border-[3px] border-slate-800 bg-white">
-          <div
-            className="h-full rounded-full transition-all duration-300 ease-out"
-            style={{ width: `${pct}%`, background: '#6fbd35' }}
-          />
-          <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-800 text-sm">
-            {pct}%
-          </span>
-        </div>
       </div>
     </div>
   );
