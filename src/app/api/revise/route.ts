@@ -92,7 +92,7 @@ ${currentText.htmlOutput}`,
 
       const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : '';
       const wpStart = raw.indexOf('[vc_row]');
-      const htmlOutput = wpStart > 0 ? raw.slice(wpStart) : (raw || currentText.htmlOutput ?? '');
+      const htmlOutput = wpStart > 0 ? raw.slice(wpStart) : (raw || (currentText.htmlOutput ?? ''));
 
       const metaTouched = /title|description|meta|seo/i.test(feedback);
       let seoTitle = currentText.seoTitle;
