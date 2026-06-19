@@ -146,63 +146,25 @@ Antworte NUR mit diesem JSON (ausschließlich kurze Strings, kein Nesting):
 }`;
 }
 
-function buildBlogHtmlPrompt(seedKeyword: string, cluster: Cluster, meta: { h1: string; keyTakeaways: string[] }, voiceSection: string, lc: LocaleConfig): string {
+function buildBlogHtmlPrompt(seedKeyword: string, cluster: Cluster, meta: { h1: string; keyTakeaways: string[] }, voiceSection: string, lc: LocaleConfig, relevantUrls: string[]): string {
   const takeaways = (meta.keyTakeaways ?? []).join(', ');
+  const internalLinksSection = relevantUrls.length
+    ? `\nINTERNE MEDIAFIX-LINKS (nur aus dieser Liste wählen, 2–4 Stück):
+${relevantUrls.slice(0, 8).map(u => `- ${u}`).join('\n')}
+Verlinke diese Seiten als echte HTML-Links (<a href="URL">natürlicher Ankertext</a>) an thematisch passenden Stellen im Fließtext — nicht im MEDIAFIX-Block.\n`
+    : '';
   return `Schreibe einen vollständigen informativen Blog-Artikel auf ${lc.contentLang} für WordPress Visual Composer.
 
 Thema: ${seedKeyword} | H1: "${meta.h1}"
 Cluster: "${cluster.name}" | Keywords: ${cluster.keywords.slice(0, 20).join(', ')}
 Key Facts: ${takeaways}
 ${voiceSection}
-
+${internalLinksSection}
 STIL: 80% informativer Ratgeber, 20% MEDIAFIX-Empfehlung am Ende. Kein Verkaufstext im Hauptteil.
 GEO: Erster Satz beantwortet Hauptfrage direkt. Fachbegriffe definieren. Spezifische Zahlen.
 MEDIAFIX: Experte für Digitalisierung und Datenrettung, über 10 Mio. digitalisierte Medien.
 
-Ausgabe: Zuerst den vollständigen WordPress-Quellcode, dann — nach dem letzten [/vc_row] — die strukturierten Daten im folgenden Delimiter-Format (kein JSON):
-
-###FAQ_FRAGE###
-[Frage 1 als Conversational Query]
-###FAQ_ANTWORT###
-[Antwort 1, 60-80 Wörter, KEINE Quellenangabe am Ende]
-
-###FAQ_FRAGE###
-[Frage 2]
-###FAQ_ANTWORT###
-[Antwort 2, 60-80 Wörter, KEINE Quellenangabe am Ende]
-
-###FAQ_FRAGE###
-[Frage 3]
-###FAQ_ANTWORT###
-[Antwort 3, 60-80 Wörter, KEINE Quellenangabe am Ende]
-
-###FAQ_FRAGE###
-[Frage 4]
-###FAQ_ANTWORT###
-[Antwort 4, 60-80 Wörter, KEINE Quellenangabe am Ende]
-
-###FAQ_FRAGE###
-[Frage 5]
-###FAQ_ANTWORT###
-[Antwort 5, 60-80 Wörter, KEINE Quellenangabe am Ende]
-
-###IMAGE###
-Position: Nach der Einleitung
-Beschreibung: [Was zeigt das Bild?]
-AltText: [SEO Alt-Text max. 120 Zeichen]
-Firefly: [English prompt: subject, style, lighting, background]
-
-###IMAGE###
-Position: Im Hauptteil
-Beschreibung: [...]
-AltText: [...]
-Firefly: [...]
-
-###IMAGE###
-Position: Vor dem MEDIAFIX-Abschnitt
-Beschreibung: [...]
-AltText: [...]
-Firefly: [...]
+AUSGABE: Nur WordPress-HTML-Quellcode — kein JSON, kein Markdown, keine FAQ, kein erklärender Text danach.
 
 LÄNGENVORGABEN — Qualität vor Länge, keine Füllsätze:
 - Orientiere dich an der Tiefe/Länge der Wettbewerber (Analysebasis im Kontext)
@@ -413,12 +375,12 @@ function estimateReadTime(html: string): number {
 }
 
 function buildTocJs(lc: LocaleConfig): string {
-  const script = `<script>document.addEventListener('click',function(e){if(!e.target.closest('.mf-toc__header'))return;var t=document.getElementById('mfToc');var l=t.querySelector('.mf-toc__toggle');t.classList.toggle('collapsed');l.textContent=t.classList.contains('collapsed')?'${lc.tocToggleShow}':'${lc.tocToggleHide}';});</script>`;
+  const script = `<script>document.addEventListener('click',function(e){if(!e.target.closest('.mf-toc__header'))return;var t=document.getElementById('mfToc');var l=t.querySelector('.mf-toc__toggle');t.classList.toggle('collapsed');l.textContent=t.classList.contains('collapsed')?'${lc.tocToggleShow}':'${lc.tocToggleHide}';},true);</script>`;
   return Buffer.from(script, 'utf8').toString('base64');
 }
 
 const FAQ_JS = Buffer.from(
-  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item)el.classList.remove('open');});item.classList.toggle('open',!isOpen);});</script>`,
+  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item)el.classList.remove('open');});item.classList.toggle('open',!isOpen);},true);</script>`,
   'utf8'
 ).toString('base64');
 
@@ -907,28 +869,30 @@ export async function POST(req: NextRequest) {
     const isBlog = contentType === 'blog_post';
 
     if (isBlog) {
-      // Pass 1: nur 4 kurze JSON-Felder
-      const metaMsg = await client.messages.create({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 512,
-        system: buildSystemBase(locale ?? 'de-DE', lc),
-        messages: [{ role: 'user', content: buildBlogMetaPrompt(seedKeyword, cluster, voiceSection + serpSection + competitorSection, lc) }],
-      });
+      // Pass 1 + Sitemap parallel
+      const [metaMsg, localeUrls] = await Promise.all([
+        client.messages.create({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 512,
+          system: buildSystemBase(locale ?? 'de-DE', lc),
+          messages: [{ role: 'user', content: buildBlogMetaPrompt(seedKeyword, cluster, voiceSection + serpSection + competitorSection, lc) }],
+        }),
+        getLocaleUrls(locale ?? 'de-DE'),
+      ]);
       const metaRaw = metaMsg.content[0].type === 'text' ? metaMsg.content[0].text : '';
       const meta = parseClaudeJson<Pick<SEOText, 'seoTitle' | 'seoDescription' | 'urlSlug' | 'h1' | 'keyTakeaways'>>(metaRaw);
+      const relevantUrls = findRelevantUrls([seedKeyword, ...cluster.keywords], localeUrls);
 
-      // Pass 2: Artikel-HTML (kein FAQ, kein TOC — mehr Token-Budget für Inhalt)
+      // Pass 2: Artikel-HTML inkl. interner Links aus Sitemap
       const htmlMsg = await client.messages.create({
         model: 'claude-sonnet-4-6',
         max_tokens: 8192,
         system: buildSystemBase(locale ?? 'de-DE', lc) + '\n\nAUSGABEFORMAT: Nur WordPress Visual Composer HTML-Quellcode. Kein JSON, kein Markdown, kein erklärender Text.',
-        messages: [{ role: 'user', content: buildBlogHtmlPrompt(seedKeyword, cluster, { h1: meta.h1 ?? '', keyTakeaways: meta.keyTakeaways ?? [] }, voiceSection + serpSection + competitorSection, lc) }],
+        messages: [{ role: 'user', content: buildBlogHtmlPrompt(seedKeyword, cluster, { h1: meta.h1 ?? '', keyTakeaways: meta.keyTakeaways ?? [] }, voiceSection + serpSection + competitorSection, lc, relevantUrls) }],
       });
       const rawHtml = htmlMsg.content[0].type === 'text' ? htmlMsg.content[0].text.trim() : '';
 
       // Pass 3: FAQ + Bildprompts (eigener Pass, garantiert vollständig)
-      const localeUrls = await getLocaleUrls(locale ?? 'de-DE');
-      const relevantUrls = findRelevantUrls([seedKeyword, ...cluster.keywords], localeUrls);
       const faqMsg = await client.messages.create({
         model: 'claude-sonnet-4-6',
         max_tokens: 2048,

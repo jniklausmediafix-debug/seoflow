@@ -373,7 +373,7 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-lg font-semibold text-slate-900">WordPress CSS</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Einmalig in WP → Appearance → Additional CSS einfügen</p>
+            <p className="text-xs text-amber-600 mt-0.5 font-medium">Altes CSS im WP-Pagebuilder komplett löschen und durch dieses ersetzen — nicht ergänzen!</p>
           </div>
           <CopyButton text={COMPONENT_CSS} />
         </div>
