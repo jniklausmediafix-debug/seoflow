@@ -43,6 +43,71 @@ function stripBlankLines(s: string): string {
   return s.replace(/\n{3,}/g, '\n\n').trim();
 }
 
+function buildPreviewHtml(wpContent: string, css: string): string {
+  let html = wpContent;
+
+  // Decode base64 vc_raw_html blocks (CSS / JS)
+  html = html.replace(/\[vc_raw_html[^\]]*\]([\s\S]*?)\[\/vc_raw_html\]/g, (_, b64) => {
+    try { return atob(b64.trim()); } catch { return ''; }
+  });
+
+  // vc_message → styled info box
+  html = html.replace(
+    /\[vc_message[^\]]*\]([\s\S]*?)\[\/vc_message\]/g,
+    '<div style="background:#f0f4e8;border-left:4px solid #90ad25;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">$1</div>'
+  );
+
+  // vc_single_image → placeholder
+  html = html.replace(
+    /\[vc_single_image[^\]]*alt="([^"]*)"[^\]]*\]/g,
+    '<div style="background:#f1f5f9;height:200px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin:20px 0;color:#94a3b8;font-size:13px;border:2px dashed #e2e8f0">📷 $1</div>'
+  );
+
+  // MEDIAFIX-spezifische Shortcodes
+  html = html.replace(/\[cgv[^\]]+\]/g, '<span style="color:#90ad25">…</span>');
+  html = html.replace(/\[mf-counter[^\]]+\]/g, '10');
+
+  // Alle verbleibenden WP-Shortcodes entfernen
+  html = html.replace(/\[[^\]]+\]/g, '');
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vorschau</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:860px;margin:0 auto;padding:40px 24px;color:#1e293b;line-height:1.75;font-size:16px}
+h1{font-size:2rem;font-weight:800;line-height:1.2;margin:0 0 1.25rem;color:#0f172a}
+h2{font-size:1.4rem;font-weight:700;margin:2.5rem 0 0.75rem;color:#1e293b;padding-top:0.5rem;border-top:1px solid #f1f5f9}
+h3{font-size:1.05rem;font-weight:600;margin:1.5rem 0 0.5rem;color:#334155}
+p{margin:0 0 1rem}
+a{color:#90ad25}a:hover{text-decoration:underline}
+a.button{display:inline-block;background:#90ad25;color:#fff!important;padding:12px 28px;border-radius:6px;font-weight:700;margin-top:12px;text-decoration:none}
+table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:14px}
+th,td{border:1px solid #e2e8f0;padding:10px 14px;text-align:left}
+th{background:#f8fafc;font-weight:600}
+ul,ol{padding-left:1.5rem;margin:0 0 1rem}li{margin-bottom:.35rem}
+hr{border:none;border-top:2px solid #e2e8f0;margin:2rem 0}
+strong{font-weight:600}
+.advantages{list-style:none;padding-left:0}.advantages li::before{content:'✓ ';color:#90ad25;font-weight:700}
+.disadvantages{list-style:none;padding-left:0}.disadvantages li::before{content:'✗ ';color:#ef4444;font-weight:700}
+${css}
+</style>
+</head>
+<body>${html}</body>
+</html>`;
+}
+
+function openPreview(wpContent: string, css: string) {
+  const html = buildPreviewHtml(wpContent, css);
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(() => URL.revokeObjectURL(url), 15000);
+}
+
 function buildVcHtml(t: SEOText): string {
   const uspsHtml = (t.usps ?? []).map((u) => `  <li>${u}</li>`).join('\n');
   const faqHtml = (t.faq ?? []).map((f) => `<strong>${f.question}</strong>\n${f.answer}`).join('\n');
@@ -285,7 +350,15 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
       <div className="card">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-slate-900">WordPress-Quellcode</h2>
-          <CopyButton text={htmlCode} />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => openPreview(htmlCode, COMPONENT_CSS)}
+              className="text-xs text-slate-400 hover:text-brand-600 transition-colors"
+            >
+              Vorschau →
+            </button>
+            <CopyButton text={htmlCode} />
+          </div>
         </div>
         <textarea
           readOnly

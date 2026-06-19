@@ -844,10 +844,11 @@ async function removeDeadExternalLinks(html: string): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { cluster, contentType, voiceTranscript, seedKeyword, serpResults, competitorContent, locale, existingImages }: {
+    const { cluster, contentType, voiceTranscript, referenceUrl, seedKeyword, serpResults, competitorContent, locale, existingImages }: {
       cluster: Cluster;
       contentType: string;
       voiceTranscript: string;
+      referenceUrl?: string;
       seedKeyword: string;
       serpResults?: Array<{ position: number; title: string; url: string; description: string }>;
       competitorContent?: Array<{ url: string; text: string }>;
@@ -991,9 +992,25 @@ Firefly: [...]`,
 
       // TOC, FAQ, Bilder und Expertenbox server-seitig injizieren
       const isoDate = new Date().toISOString().split('T')[0];
+
+      // Referenz-URL als höchstprioritären internen Link vorschalten
+      const referenceLink = referenceUrl?.trim()
+        ? await (async () => {
+            try {
+              const res = await fetch(referenceUrl, { signal: AbortSignal.timeout(5000) });
+              const html = await res.text();
+              const h1 = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+              const title = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+              const anchor = (h1?.[1] ?? title?.[1]?.split(/[|–—-]/)[0] ?? '')
+                .replace(/&amp;/g, '&').trim().slice(0, 60);
+              return anchor ? [{ anchorText: anchor, urlSuggestion: referenceUrl, position: '' }] : [];
+            } catch { return []; }
+          })()
+        : [];
+
       const checkedHtml = injectInternalLinks(
         await removeDeadExternalLinks(cleanArticleHtml(rawHtml)),
-        faqParsed.internalLinks ?? []
+        [...referenceLink, ...(faqParsed.internalLinks ?? [])]
       );
       const articleHtml = injectTocAndFaq(
         checkedHtml,

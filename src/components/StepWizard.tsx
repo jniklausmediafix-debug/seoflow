@@ -29,6 +29,7 @@ const initialState: WizardState = {
   selectedCluster: null,
   contentType: 'service_page',
   voiceTranscript: '',
+  referenceUrl: '',
   generatedText: null,
   revisionTranscript: '',
   revisedText: null,
@@ -149,6 +150,7 @@ export default function StepWizard() {
           cluster: state.selectedCluster,
           contentType: state.contentType,
           voiceTranscript: state.voiceTranscript,
+          referenceUrl: state.referenceUrl || undefined,
           seedKeyword: state.seedKeyword,
           serpResults: state.serpResults.slice(0, 5),
           competitorContent: state.competitorContent,
@@ -319,10 +321,12 @@ export default function StepWizard() {
         <Step4VoiceInput
           contentType={state.contentType}
           voiceTranscript={state.voiceTranscript}
+          referenceUrl={state.referenceUrl}
           seedKeyword={state.seedKeyword}
           serpResults={state.serpResults}
           onContentTypeChange={(v: ContentTypeValue) => set({ contentType: v })}
           onTranscript={(t) => set({ voiceTranscript: t })}
+          onReferenceUrlChange={(u) => set({ referenceUrl: u })}
           onGenerate={handleGenerate}
           isLoading={state.isLoading}
           error={state.error}

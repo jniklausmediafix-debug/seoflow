@@ -198,6 +198,7 @@ export interface WizardState {
   contentType: ContentTypeValue;
   voiceTranscript: string;
   generatedText: SEOText | null;
+  referenceUrl: string;
   revisionTranscript: string;
   revisedText: SEOText | null;
   isLoading: boolean;

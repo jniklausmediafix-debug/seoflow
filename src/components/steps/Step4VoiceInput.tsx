@@ -5,10 +5,12 @@ import { CONTENT_TYPES, type ContentTypeValue, type SerpResult } from '@/types';
 interface Props {
   contentType: ContentTypeValue;
   voiceTranscript: string;
+  referenceUrl: string;
   seedKeyword: string;
   serpResults: SerpResult[];
   onContentTypeChange: (v: ContentTypeValue) => void;
   onTranscript: (text: string) => void;
+  onReferenceUrlChange: (url: string) => void;
   onGenerate: () => Promise<void>;
   isLoading: boolean;
   error: string | null;
@@ -39,10 +41,12 @@ function recommendContentType(seedKeyword: string, serpResults: SerpResult[]): C
 export default function Step4VoiceInput({
   contentType,
   voiceTranscript,
+  referenceUrl,
   seedKeyword,
   serpResults,
   onContentTypeChange,
   onTranscript,
+  onReferenceUrlChange,
   onGenerate,
   isLoading,
   error,
@@ -90,30 +94,50 @@ export default function Step4VoiceInput({
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            Vorab-Hinweise für Claude <span className="font-normal text-slate-400">(optional)</span>
-          </label>
+        <div className="flex flex-col gap-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Referenz-URL <span className="font-normal text-slate-400">(optional)</span>
+            </label>
+            <p className="text-xs text-slate-400 mb-2">
+              MEDIAFIX-Leistungsseite, die thematisch passt — wird als interner Link im Artikel eingebettet.
+            </p>
+            <input
+              type="url"
+              value={referenceUrl}
+              onChange={(e) => onReferenceUrlChange(e.target.value)}
+              disabled={isLoading}
+              placeholder="z.B. https://mediafix.de/datenrettung-festplatte/"
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:opacity-50"
+            />
+          </div>
 
-          <textarea
-            value={voiceTranscript}
-            onChange={(e) => onTranscript(e.target.value)}
-            disabled={isLoading}
-            rows={4}
-            placeholder="z.B. Tonalität, USPs, Preisinfos, Besonderheiten des Betriebs… Hier kannst du auch Text aus WhisperFlow einfügen."
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:opacity-50"
-          />
-
-          {voiceTranscript && (
-            <div className="mt-2 flex justify-end">
-              <button
-                onClick={() => onTranscript('')}
-                className="text-xs text-slate-400 hover:text-red-500 transition-colors"
-              >
-                Löschen
-              </button>
-            </div>
-          )}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Vorab-Hinweise für Claude <span className="font-normal text-slate-400">(optional)</span>
+            </label>
+            <p className="text-xs text-slate-400 mb-2">
+              Alles was Claude ohne SERP-Daten nicht wissen kann: Fokus-Thema, spezifische Preise, Tonalität, interne Besonderheiten. Ohne Eingabe arbeitet Claude allein mit Keywords und Wettbewerbsanalyse — das reicht für die meisten Artikel.
+            </p>
+            <textarea
+              value={voiceTranscript}
+              onChange={(e) => onTranscript(e.target.value)}
+              disabled={isLoading}
+              rows={4}
+              placeholder={'z.B. "Fokus auf externe Festplatten, nicht interne" · "Preisspanne 150–300 €" · "Ton sachlich, keine Übertreibungen" · "Unsere Stärke: Reinraum-Labor in Deutschland"'}
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:opacity-50"
+            />
+            {voiceTranscript && (
+              <div className="mt-2 flex justify-end">
+                <button
+                  onClick={() => onTranscript('')}
+                  className="text-xs text-slate-400 hover:text-red-500 transition-colors"
+                >
+                  Löschen
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

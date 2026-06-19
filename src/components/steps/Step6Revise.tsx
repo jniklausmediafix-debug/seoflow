@@ -45,8 +45,11 @@ export default function Step6Revise({
     <div className="flex flex-col gap-6">
       <div className="card">
         <h2 className="text-lg font-semibold text-slate-900 mb-1">Nachkorrektur per Sprache</h2>
-        <p className="text-sm text-slate-500 mb-5">
-          Sprich dein Feedback ein: Was soll geändert werden? Claude überarbeitet nur die betroffenen Abschnitte.
+        <p className="text-sm text-slate-500 mb-1">
+          Claude überarbeitet nur die betroffenen Abschnitte — alles andere bleibt unverändert.
+        </p>
+        <p className="text-xs text-amber-600 mb-5">
+          Tipp: Gezielte Korrekturen ("Intro kürzer", "Preis auf 150–300 € anpassen") sind effektiver als breite Anweisungen. Mehrfache Überarbeitungen können den Textfluss beeinträchtigen.
         </p>
 
         <textarea
