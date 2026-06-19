@@ -7,8 +7,8 @@ const PHASES = {
     'Hans-Günter sucht die besten Keywords für dich...',
     'Hans-Günter analysiert Suchvolumen und Konkurrenz...',
     'Hans-Günter checkt die SERP-Ergebnisse...',
-    'Hans-Günter tippt fleißig Keywords in seinen Tagesplan...',
     'Hans-Günter telefoniert gerade mit DataForSEO...',
+    'Hans-Günter tippt fleißig Keywords in seinen Tagesplan...',
   ],
   cluster: [
     'Hans-Günter clustert deine Keywords...',
@@ -32,6 +32,30 @@ interface Props {
   phase?: keyof typeof PHASES;
 }
 
+// Arm-Overlays: jeder ist ein <img> mit clip-path + eigener Rotation
+// transform-origin = Schultergelenk (relativ zum img)
+// Rotation um Schulter → Hand/Objekt schwingt in einem Bogen
+const ARMS = [
+  {
+    // Kaffeetasse (oben links) – rotiert um linke Schulter
+    clip: 'polygon(0% 0%, 46% 0%, 46% 62%, 0% 62%)',
+    origin: '37% 54%',
+    animation: 'armCoffee 2.6s ease-in-out infinite',
+  },
+  {
+    // Klemmbrett (oben rechts) – rotiert um rechte Schulter
+    clip: 'polygon(54% 0%, 100% 0%, 100% 62%, 54% 62%)',
+    origin: '63% 54%',
+    animation: 'armClipboard 2.1s ease-in-out infinite',
+  },
+  {
+    // Daumen hoch (rechts) – rotiert um rechte Schulter, versetzt
+    clip: 'polygon(63% 42%, 100% 42%, 100% 82%, 63% 82%)',
+    origin: '64% 54%',
+    animation: 'armThumb 1.85s ease-in-out infinite',
+  },
+];
+
 export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
   const [progress, setProgress] = useState(0);
   const [msgIndex, setMsgIndex] = useState(0);
@@ -44,76 +68,92 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
       setVisible(true);
     } else if (visible) {
       setProgress(100);
-      const t = setTimeout(() => {
-        setVisible(false);
-        setProgress(0);
-      }, 500);
+      const t = setTimeout(() => { setVisible(false); setProgress(0); }, 500);
       return () => clearTimeout(t);
     }
   }, [isLoading]);
 
   useEffect(() => {
     if (!visible || !isLoading) return;
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev < 35) return prev + 2.5;
-        if (prev < 65) return prev + 1.0;
-        if (prev < 82) return prev + 0.4;
-        if (prev < 94) return prev + 0.1;
-        return prev;
+    const id = setInterval(() => {
+      setProgress((p) => {
+        if (p < 35) return p + 2.5;
+        if (p < 65) return p + 1.0;
+        if (p < 82) return p + 0.4;
+        if (p < 94) return p + 0.1;
+        return p;
       });
     }, 200);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, [visible, isLoading]);
 
   useEffect(() => {
     if (!isLoading) return;
-    const messages = PHASES[phase];
-    const interval = setInterval(() => {
-      setMsgIndex((i) => (i + 1) % messages.length);
-    }, 3500);
-    return () => clearInterval(interval);
+    const msgs = PHASES[phase];
+    const id = setInterval(() => setMsgIndex((i) => (i + 1) % msgs.length), 3500);
+    return () => clearInterval(id);
   }, [isLoading, phase]);
 
   if (!visible) return null;
 
-  const messages = PHASES[phase];
   const pct = Math.round(Math.min(progress, 100));
+  const msg = PHASES[phase][msgIndex];
 
   return (
     <>
       <style>{`
-        @keyframes hansArms {
-          0%   { transform: rotate(-1.5deg) translateY(0px); }
-          20%  { transform: rotate(1deg) translateY(-5px); }
-          40%  { transform: rotate(-2deg) translateY(-2px); }
-          60%  { transform: rotate(1.5deg) translateY(-6px); }
-          80%  { transform: rotate(-1deg) translateY(-1px); }
-          100% { transform: rotate(-1.5deg) translateY(0px); }
+        @keyframes armCoffee {
+          0%, 100% { transform: rotate(0deg); }
+          45%       { transform: rotate(-7deg); }
+          70%       { transform: rotate(-3deg); }
         }
-        .hans-animate {
-          animation: hansArms 2.4s ease-in-out infinite;
-          transform-origin: 50% 42%;
+        @keyframes armClipboard {
+          0%, 100% { transform: rotate(0deg); }
+          50%       { transform: rotate(6deg); }
+        }
+        @keyframes armThumb {
+          0%, 100% { transform: rotate(0deg) translateY(0px); }
+          50%       { transform: rotate(-5deg) translateY(-5px); }
         }
       `}</style>
 
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm">
-        <div className="flex flex-col items-center w-full px-6" style={{ maxWidth: 540 }}>
+        <div className="flex flex-col items-center w-full px-6" style={{ maxWidth: 560 }}>
 
-          {/* Hans-Günter mit Arm-Animation */}
-          <img
-            src="/hans-guenter-loader.png"
-            alt="Hans-Günter lädt"
-            className="hans-animate w-full select-none"
-            draggable={false}
-          />
+          {/* Bild-Container: Basis-Bild + Arm-Overlays */}
+          <div className="relative w-full">
+            {/* Basis: statisches Bild (Körper, Kopf, Schreibtisch) */}
+            <img
+              src="/hans-guenter-loader.png"
+              alt="Hans-Günter"
+              className="w-full block select-none"
+              draggable={false}
+            />
+
+            {/* Arm-Overlays – jedes zeigt dasselbe Bild, geclippt auf einen Arm */}
+            {ARMS.map((arm, i) => (
+              <img
+                key={i}
+                src="/hans-guenter-loader.png"
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full select-none pointer-events-none"
+                draggable={false}
+                style={{
+                  clipPath: arm.clip,
+                  transformOrigin: arm.origin,
+                  animation: arm.animation,
+                }}
+              />
+            ))}
+          </div>
 
           {/* Dynamische Nachricht */}
           <p className="text-lg font-semibold text-slate-800 text-center mt-4 mb-3 min-h-[1.75rem]">
-            {messages[msgIndex]}
+            {msg}
           </p>
 
-          {/* Ladebalken — exakt so breit wie das Bild */}
+          {/* Ladebalken – gleiche Breite wie Bild */}
           <div className="relative w-full h-9 rounded-full overflow-hidden border-[3px] border-slate-800 bg-white">
             <div
               className="h-full rounded-full transition-all duration-300 ease-out"
