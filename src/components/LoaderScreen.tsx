@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 
 const PHASES = {
   keywords: [
-    'Hans-Günter fragt DataForSEO nach den besten Keywords...',
-    'Hans-Günter analysiert das Suchvolumen...',
-    'Hans-Günter sortiert die Konkurrenz aus...',
-    'Hans-Günter prüft noch schnell die SERP-Ergebnisse...',
+    'Hans-Günter sucht die besten Keywords für dich...',
+    'Hans-Günter analysiert Suchvolumen und Konkurrenz...',
+    'Hans-Günter checkt die SERP-Ergebnisse...',
     'Hans-Günter tippt fleißig Keywords in seinen Tagesplan...',
+    'Hans-Günter telefoniert gerade mit DataForSEO...',
   ],
   cluster: [
-    'Hans-Günter clustert deine Keywords mit voller Power...',
+    'Hans-Günter clustert deine Keywords...',
     'Hans-Günter fragt Claude um Rat...',
     'Hans-Günter gruppiert thematisch verwandte Keywords...',
     'Hans-Günter schreibt alles auf sein Whiteboard...',
@@ -21,9 +21,9 @@ const PHASES = {
     'Hans-Günter recherchiert für maximale SERP-Power...',
     'Hans-Günter baut die interne Verlinkung ein...',
     'Hans-Günter formuliert überzeugend und keyword-optimiert...',
-    'Hans-Günter prüft Lesedauer, FAQ und Bildprompts...',
-    'Hans-Günter macht noch einen letzten Qualitäts-Check...',
+    'Hans-Günter prüft FAQ, Lesedauer und Bildprompts...',
     'Hans-Günter optimiert gerade alles für dich...',
+    'Hans-Günter macht noch einen letzten Qualitäts-Check...',
   ],
 };
 
@@ -81,36 +81,51 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
   const pct = Math.round(Math.min(progress, 100));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm">
-      <div className="flex flex-col items-center max-w-[560px] w-full px-6 text-center">
-        {/* Image with real progress bar overlaid on the baked-in static one */}
-        <div className="relative w-full">
+    <>
+      <style>{`
+        @keyframes hansArms {
+          0%   { transform: rotate(-1.5deg) translateY(0px); }
+          20%  { transform: rotate(1deg) translateY(-5px); }
+          40%  { transform: rotate(-2deg) translateY(-2px); }
+          60%  { transform: rotate(1.5deg) translateY(-6px); }
+          80%  { transform: rotate(-1deg) translateY(-1px); }
+          100% { transform: rotate(-1.5deg) translateY(0px); }
+        }
+        .hans-animate {
+          animation: hansArms 2.4s ease-in-out infinite;
+          transform-origin: 50% 42%;
+        }
+      `}</style>
+
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm">
+        <div className="flex flex-col items-center w-full px-6" style={{ maxWidth: 540 }}>
+
+          {/* Hans-Günter mit Arm-Animation */}
           <img
             src="/hans-guenter-loader.png"
             alt="Hans-Günter lädt"
-            className="w-full select-none"
+            className="hans-animate w-full select-none"
             draggable={false}
           />
-          {/* Overlay: covers the static 78%-bar in the image */}
-          <div
-            className="absolute overflow-hidden rounded-full bg-white"
-            style={{ top: '79%', left: '6.5%', width: '87%', height: '7%' }}
-          >
+
+          {/* Dynamische Nachricht */}
+          <p className="text-lg font-semibold text-slate-800 text-center mt-4 mb-3 min-h-[1.75rem]">
+            {messages[msgIndex]}
+          </p>
+
+          {/* Ladebalken — exakt so breit wie das Bild */}
+          <div className="relative w-full h-9 rounded-full overflow-hidden border-[3px] border-slate-800 bg-white">
             <div
               className="h-full rounded-full transition-all duration-300 ease-out"
               style={{ width: `${pct}%`, background: '#6fbd35' }}
             />
-            <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-800"
-              style={{ fontSize: 'clamp(10px, 1.8vw, 16px)' }}>
+            <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-800 text-sm">
               {pct}%
             </span>
           </div>
+
         </div>
-        {/* Dynamic message — replaces the static text in the image */}
-        <p className="text-base font-semibold text-slate-700 -mt-[6%] mb-[6%] px-4">
-          {messages[msgIndex]}
-        </p>
       </div>
-    </div>
+    </>
   );
 }
