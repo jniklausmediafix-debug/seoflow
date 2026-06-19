@@ -402,6 +402,16 @@ Firefly: [...]
 
 // ── TOC + FAQ builder (server-side, data-driven) ─────────────────────────────
 
+function estimateReadTime(html: string): number {
+  const text = html
+    .replace(/\[[^\]]+\]/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const words = text.split(' ').filter(w => w.length > 1).length;
+  return Math.max(3, Math.round(words / 220));
+}
+
 function buildTocJs(lc: LocaleConfig): string {
   const script = `<script>document.addEventListener('click',function(e){if(!e.target.closest('.mf-toc__header'))return;var t=document.getElementById('mfToc');var l=t.querySelector('.mf-toc__toggle');t.classList.toggle('collapsed');l.textContent=t.classList.contains('collapsed')?'${lc.tocToggleShow}':'${lc.tocToggleHide}';});</script>`;
   return Buffer.from(script, 'utf8').toString('base64');
@@ -445,8 +455,7 @@ function extractH2s(html: string): Array<{ id: string; text: string }> {
   return results;
 }
 
-function buildTocHtml(headings: Array<{ id: string; text: string }>, faqCount: number, lc: LocaleConfig): string {
-  const readMins = Math.max(4, Math.round((headings.length * 3 + faqCount) * 0.8));
+function buildTocHtml(headings: Array<{ id: string; text: string }>, faqCount: number, lc: LocaleConfig, readMins: number): string {
   const items = headings.map((h, i) =>
     `      <li class="mf-toc__item${i === 0 ? ' mf-toc__item--highlight' : ''}">` +
     `<a href="#${h.id}" class="mf-toc__link">` +
@@ -548,7 +557,7 @@ function injectTocAndFaq(
   expertBio?: string
 ): string {
   const headings = extractH2s(html);
-  const toc = buildTocHtml(headings, faq.length, lc);
+  const toc = buildTocHtml(headings, faq.length, lc, estimateReadTime(html));
 
   // 1. TOC + optionale Expertenbox nach <hr />
   const expertBlock = expertBio ? `\n\n${buildExpertBox(expertBio, lc)}` : '';

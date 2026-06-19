@@ -103,7 +103,7 @@ export const COMPONENT_CSS = `
   min-width: 24px !important;
   height: 24px !important;
   border-radius: 50% !important;
-  border: 2px solid #d0d0d0 !important;
+  border: 2px solid #ccc !important;
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
@@ -115,45 +115,28 @@ export const COMPONENT_CSS = `
   justify-content: center !important;
   flex-shrink: 0 !important;
   -ms-flex-negative: 0 !important;
-  transition: border-color 0.2s, background 0.2s, transform 0.3s !important;
-  position: relative !important;
+  transition: border-color 0.2s, background 0.2s !important;
   box-sizing: border-box !important;
-}
-
-.mf-faq__icon::before,
-.mf-faq__icon::after {
-  content: '' !important;
-  position: absolute !important;
-  background: #999 !important;
-  border-radius: 2px !important;
-  transition: background 0.2s, transform 0.3s, opacity 0.2s !important;
+  color: #6ab04c !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  line-height: 1 !important;
 }
 
 .mf-faq__icon::before {
-  width: 10px !important;
-  height: 2px !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-}
-
-.mf-faq__icon::after {
-  width: 2px !important;
-  height: 10px !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  content: '+' !important;
+  display: block !important;
+  line-height: 1 !important;
 }
 
 .mf-faq__item.open .mf-faq__icon {
   border-color: #6ab04c !important;
   background: #6ab04c !important;
-  transform: rotate(45deg) !important;
+  color: #fff !important;
 }
 
-.mf-faq__item.open .mf-faq__icon::before,
-.mf-faq__item.open .mf-faq__icon::after {
-  background: #fff !important;
+.mf-faq__item.open .mf-faq__icon::before {
+  content: '×' !important;
 }
 
 .mf-faq__answer {
@@ -592,5 +575,10 @@ export const COMPONENT_CSS = `
     border-left: none !important;
     border-top: 1px solid #e8e8e8 !important;
   }
+}
+
+a.button {
+  display: inline-block !important;
+  margin-top: 24px !important;
 }
 `.trim();
