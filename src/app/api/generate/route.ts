@@ -589,9 +589,7 @@ function injectTocAndFaq(
     `${faqHtml}\n\n${img3Block}<h2 id="mediafix">`
   );
 
-  // 5. CSS + JS-Blöcke
-  const cssB64 = Buffer.from(`<style>${COMPONENT_CSS}</style>`, 'utf8').toString('base64');
-  result += `\n[vc_row][vc_column][vc_raw_html]${cssB64}[/vc_raw_html][/vc_column][/vc_row]`;
+  // 5. JS-Blöcke (TOC-Toggle + FAQ-Akkordeon)
   result += `\n[vc_row][vc_column][vc_raw_html]${buildTocJs(lc)}[/vc_raw_html][/vc_column][/vc_row]`;
   result += `\n[vc_row][vc_column][vc_raw_html]${FAQ_JS}[/vc_raw_html][/vc_column][/vc_row]`;
 
