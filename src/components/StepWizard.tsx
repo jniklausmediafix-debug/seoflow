@@ -27,7 +27,7 @@ const initialState: WizardState = {
   competitorContent: [],
   clusters: [],
   selectedCluster: null,
-  contentType: 'service_page',
+  contentType: 'blog_post',
   voiceTranscript: '',
   referenceUrl: '',
   generatedText: null,

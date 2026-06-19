@@ -1012,13 +1012,27 @@ Firefly: [...]`,
         await removeDeadExternalLinks(cleanArticleHtml(rawHtml)),
         [...referenceLink, ...(faqParsed.internalLinks ?? [])]
       );
-      const articleHtml = injectTocAndFaq(
+      let articleHtml = injectTocAndFaq(
         checkedHtml,
         faqParsed.faq ?? [],
         lc,
         images,
         faqParsed.expertBio
       );
+      // Referenz-URL garantiert im MEDIAFIX-Block einbetten, falls noch nicht im Artikel
+      if (referenceUrl?.trim() && referenceLink[0]?.anchorText) {
+        const anchor = referenceLink[0].anchorText;
+        if (!articleHtml.includes(referenceUrl)) {
+          const ctaRe = /(<a\s+class="button"\s+href="https:\/\/mediafix\.de\/")/;
+          if (ctaRe.test(articleHtml)) {
+            articleHtml = articleHtml.replace(
+              ctaRe,
+              `<p><a href="${referenceUrl}">${anchor}</a></p>\n$1`
+            );
+          }
+        }
+      }
+
       const schemas = buildBlogSchemas(
         meta.h1 ?? '',
         meta.seoDescription ?? '',
