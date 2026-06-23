@@ -5,11 +5,7 @@ export default function Home() {
     <main className="min-h-screen">
       <header className="border-b border-slate-200 bg-white px-6 py-3 shadow-sm">
         <div className="mx-auto flex max-w-5xl items-center gap-4">
-          <div className="flex items-center gap-1">
-            <div className="h-7 w-1.5 rounded-full bg-brand-500" />
-            <div className="h-5 w-1.5 rounded-full bg-mf-orange" />
-            <div className="h-3 w-1.5 rounded-full bg-mf-red" />
-          </div>
+          <img src="/logo.png" alt="MEDIAFIX Logo" className="h-10 w-auto" />
           <div className="flex items-baseline gap-2">
             <span className="text-lg font-bold tracking-wide text-slate-900">MEDIAFIX</span>
             <span className="text-slate-300 font-light">|</span>

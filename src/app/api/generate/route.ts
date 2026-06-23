@@ -380,7 +380,7 @@ function buildTocJs(lc: LocaleConfig): string {
 }
 
 const FAQ_JS = Buffer.from(
-  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item)el.classList.remove('open');});item.classList.toggle('open',!isOpen);},true);</script>`,
+  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item){el.classList.remove('open');var ic=el.querySelector('.mf-faq__icon');if(ic)ic.textContent='+';}});item.classList.toggle('open',!isOpen);var icon=item.querySelector('.mf-faq__icon');if(icon)icon.textContent=item.classList.contains('open')?'×':'+';},true);</script>`,
   'utf8'
 ).toString('base64');
 
@@ -450,7 +450,7 @@ function buildFaqHtml(faq: Array<{ question: string; answer: string }>, lc: Loca
   const items = faq.map(f => `  <div class="mf-faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
     <div class="mf-faq__question">
       <span class="mf-faq__q-text" itemprop="name">${f.question}</span>
-      <span class="mf-faq__icon"></span>
+      <span class="mf-faq__icon" aria-hidden="true">+</span>
     </div>
     <div class="mf-faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
       <div class="mf-faq__a-inner" itemprop="text">${f.answer}</div>

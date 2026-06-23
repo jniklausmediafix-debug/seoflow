@@ -32,30 +32,6 @@ interface Props {
   phase?: keyof typeof PHASES;
 }
 
-// Arm-Overlays: jeder ist ein <img> mit clip-path + eigener Rotation
-// transform-origin = Schultergelenk (relativ zum img)
-// Rotation um Schulter → Hand/Objekt schwingt in einem Bogen
-const ARMS = [
-  {
-    // Kaffeetasse (oben links) – rotiert um linke Schulter
-    clip: 'polygon(0% 0%, 46% 0%, 46% 62%, 0% 62%)',
-    origin: '37% 54%',
-    animation: 'armCoffee 2.6s ease-in-out infinite',
-  },
-  {
-    // Klemmbrett (oben rechts) – rotiert um rechte Schulter
-    clip: 'polygon(54% 0%, 100% 0%, 100% 62%, 54% 62%)',
-    origin: '63% 54%',
-    animation: 'armClipboard 2.1s ease-in-out infinite',
-  },
-  {
-    // Daumen hoch (rechts) – rotiert um rechte Schulter, versetzt
-    clip: 'polygon(63% 42%, 100% 42%, 100% 82%, 63% 82%)',
-    origin: '64% 54%',
-    animation: 'armThumb 1.85s ease-in-out infinite',
-  },
-];
-
 export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
   const [progress, setProgress] = useState(0);
   const [msgIndex, setMsgIndex] = useState(0);
@@ -102,50 +78,72 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
   return (
     <>
       <style>{`
-        @keyframes armCoffee {
+        @keyframes armKaffee {
           0%, 100% { transform: rotate(0deg); }
-          45%       { transform: rotate(-7deg); }
-          70%       { transform: rotate(-3deg); }
+          40%       { transform: rotate(-10deg); }
+          70%       { transform: rotate(-4deg); }
         }
         @keyframes armClipboard {
           0%, 100% { transform: rotate(0deg); }
-          50%       { transform: rotate(6deg); }
+          50%       { transform: rotate(9deg); }
         }
-        @keyframes armThumb {
+        @keyframes armDaumen {
           0%, 100% { transform: rotate(0deg) translateY(0px); }
-          50%       { transform: rotate(-5deg) translateY(-5px); }
+          50%       { transform: rotate(-8deg) translateY(-8px); }
         }
       `}</style>
 
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm">
         <div className="flex flex-col items-center w-full px-6" style={{ maxWidth: 560 }}>
 
-          {/* Bild-Container: Basis-Bild + Arm-Overlays */}
+          {/* Layer-Stack: Body + je ein Arm-Bild */}
           <div className="relative w-full">
-            {/* Basis: statisches Bild (Körper, Kopf, Schreibtisch) */}
+            {/* Basis-Body */}
             <img
-              src="/hans-guenter-loader.png"
+              src="/hans-body.png"
               alt="Hans-Günter"
               className="w-full block select-none"
               draggable={false}
             />
 
-            {/* Arm-Overlays – jedes zeigt dasselbe Bild, geclippt auf einen Arm */}
-            {ARMS.map((arm, i) => (
-              <img
-                key={i}
-                src="/hans-guenter-loader.png"
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full select-none pointer-events-none"
-                draggable={false}
-                style={{
-                  clipPath: arm.clip,
-                  transformOrigin: arm.origin,
-                  animation: arm.animation,
-                }}
-              />
-            ))}
+            {/* Arm: Kaffee – rotiert um linke Schulter */}
+            <img
+              src="/hans-arm-kaffee.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full select-none pointer-events-none"
+              draggable={false}
+              style={{
+                transformOrigin: '37% 54%',
+                animation: 'armKaffee 1.6s ease-in-out infinite',
+              }}
+            />
+
+            {/* Arm: Klemmbrett – rotiert um rechte Schulter */}
+            <img
+              src="/hans-arm-clipboard.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full select-none pointer-events-none"
+              draggable={false}
+              style={{
+                transformOrigin: '63% 48%',
+                animation: 'armClipboard 1.4s ease-in-out infinite',
+              }}
+            />
+
+            {/* Arm: Daumen hoch – separate Bewegung */}
+            <img
+              src="/hans-arm-daumen.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full select-none pointer-events-none"
+              draggable={false}
+              style={{
+                transformOrigin: '64% 50%',
+                animation: 'armDaumen 1.2s ease-in-out infinite',
+              }}
+            />
           </div>
 
           {/* Dynamische Nachricht */}
@@ -153,7 +151,7 @@ export default function LoaderScreen({ isLoading, phase = 'generate' }: Props) {
             {msg}
           </p>
 
-          {/* Ladebalken – gleiche Breite wie Bild */}
+          {/* Ladebalken */}
           <div className="relative w-full h-9 rounded-full overflow-hidden border-[3px] border-slate-800 bg-white">
             <div
               className="h-full rounded-full transition-all duration-300 ease-out"
