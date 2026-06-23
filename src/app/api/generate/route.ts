@@ -432,15 +432,13 @@ function buildTocHtml(headings: Array<{ id: string; text: string }>, faqCount: n
     );
   }
   return `<nav class="mf-toc" id="mfToc" aria-label="${lc.tocTitle}">
-  <div class="mf-toc__header" role="button" aria-expanded="true">
+  <div class="mf-toc__header">
     <span class="mf-toc__title">${lc.tocTitle}</span>
-    <span class="mf-toc__toggle">${lc.tocToggleHide}</span>
   </div>
   <div class="mf-toc__body">
     <ol class="mf-toc__list">
 ${items.join('\n')}
     </ol>
-    <div class="mf-toc__footer"><span class="mf-toc__meta">${lc.readTimeFn(readMins)}</span></div>
   </div>
 </nav>`;
 }
@@ -551,8 +549,7 @@ function injectTocAndFaq(
     `${faqHtml}\n\n${img3Block}<h2 id="mediafix">`
   );
 
-  // 5. JS-Blöcke (TOC-Toggle + FAQ-Akkordeon)
-  result += `\n[vc_row][vc_column][vc_raw_html]${buildTocJs(lc)}[/vc_raw_html][/vc_column][/vc_row]`;
+  // 5. JS-Block (FAQ-Akkordeon — TOC-Toggle entfernt, da kein Toggle mehr)
   result += `\n[vc_row][vc_column][vc_raw_html]${FAQ_JS}[/vc_raw_html][/vc_column][/vc_row]`;
 
   return result;

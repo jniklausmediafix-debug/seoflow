@@ -1,5 +1,5 @@
 export const COMPONENT_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Bitter:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=Bitter:wght@600;700&display=swap');
 
 .mf-faq {
   max-width: 680px;
