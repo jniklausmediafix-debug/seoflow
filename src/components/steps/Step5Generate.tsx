@@ -119,7 +119,7 @@ function buildVcHtml(t: SEOText): string {
       : '';
 
   const takeawaysHtml = (t.keyTakeaways?.length)
-    ? `\n[vc_message message_box_color="grey" css=""]<strong>Auf einen Blick</strong>\n<ul>\n${t.keyTakeaways.map((k) => `  <li>${k}</li>`).join('\n')}\n</ul>[/vc_message]`
+    ? `\n[vc_message message_box_color="grey" el_class="mf-info" css=""]<strong>Auf einen Blick</strong>\n<ul>\n${t.keyTakeaways.map((k) => `  <li>${k}</li>`).join('\n')}\n</ul>[/vc_message]`
     : '';
 
   const body = [

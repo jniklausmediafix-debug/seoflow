@@ -180,7 +180,7 @@ export const COMPONENT_CSS = `
   background: #ffffff;
   border: 1px solid #ededed;
   border-radius: 3px;
-  max-width: 520px;
+  max-width: 680px;
   width: 100%;
   padding: 0;
   overflow: hidden;
@@ -362,30 +362,85 @@ export const COMPONENT_CSS = `
 .mf-toc__meta::before { content: '🕐'; font-size: 10px; }
 ===== Ende TOC v1 ===== */
 
+/* ===== MEDIAFIX INFO BOX (Klasse statt #info-ID → beliebig oft nutzbar) ===== */
+.mf-info {
+  background-color: #f2f2f2 !important;
+  color: #333333 !important;
+  border: 1px solid #90ad25 !important;
+}
+
+.mf-info i {
+  color: #90ad25 !important;
+}
+
+.mf-info svg,
+.mf-info svg path {
+  fill: #90ad25 !important;
+}
+
+/* ===== MEDIAFIX STEPS / TIMELINE ===== */
 .mf-steps {
-  margin: 1.5em 0;
+  max-width: 680px;
+  margin: 1.8em 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .mf-step {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 18px;
+  position: relative;
+  padding-bottom: 22px;
+}
+
+/* vertikale Linie, die die Schritte verbindet */
+.mf-step::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: -2px;
+  width: 2px;
+  background: #ededed;
+}
+
+.mf-step:last-child {
+  padding-bottom: 0;
+}
+
+.mf-step:last-child::before {
+  display: none;
 }
 
 .mf-step__num {
-  font-size: 40px;
-  color: #90ad25;
-  font-weight: 800;
-  min-width: 44px;
-  text-align: center;
-  line-height: 1.1;
   flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #90ad25;
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .mf-step__content {
   flex: 1;
-  padding-top: 6px;
+  padding-top: 7px;
+  font-size: inherit;
+  line-height: 1.7;
+  color: #333333;
+}
+
+.mf-step__content strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #421e47;
+  font-weight: 700;
 }
 
 .mf-expert {

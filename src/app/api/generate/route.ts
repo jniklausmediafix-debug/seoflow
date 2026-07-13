@@ -509,6 +509,48 @@ function removeEmptyVcBlocks(html: string): string {
   return out;
 }
 
+// ── Shell-Transformationen (NUR Darstellung — Artikeltext bleibt unverändert) ─
+// Infobox: el_class="mf-info" ergänzen, damit das MEDIAFIX-Box-CSS greift.
+// (Klasse statt der nicht wiederholbaren #info-ID → beliebig viele Boxen pro Seite.)
+function addInfoboxClass(html: string): string {
+  return html.replace(/\[vc_message\b([^\]]*)\]/g, (full, attrs) => {
+    if (/\bel_class=/.test(attrs)) return full; // schon gesetzt → nicht anfassen
+    return `[vc_message${attrs} el_class="mf-info"]`;
+  });
+}
+
+// Steps: die vc_row_inner-Spalten (große grüne Zahl) in die mf-steps-Timeline
+// umbauen. WICHTIG: erst NACH dem HowTo-Schema-Build aufrufen, damit dessen
+// Parser (extractHowToSteps) noch das originale vc_row_inner-Markup sieht.
+// Der Textinhalt der 5/6-Spalte wird 1:1 übernommen.
+function transformSteps(html: string): string {
+  const runRe = /(?:\[vc_row_inner\][\s\S]*?\[\/vc_row_inner\]\s*)+/g;
+  return html.replace(runRe, (run) => {
+    if (!run.includes('font-size: 40px')) return run; // nur Step-Runs anfassen
+    const blockRe = /\[vc_row_inner\]([\s\S]*?)\[\/vc_row_inner\]/g;
+    const steps: string[] = [];
+    let m: RegExpExecArray | null;
+    while ((m = blockRe.exec(run)) !== null) {
+      const block = m[1];
+      const numMatch = block.match(/font-size:\s*40px[\s\S]*?>\s*(\d+)\s*</);
+      const contentMatch = block.match(
+        /width="5\/6"\]\[vc_column_text[^\]]*\]([\s\S]*?)\[\/vc_column_text\]/
+      );
+      if (!contentMatch) return run; // unerwartete Struktur → nichts verändern
+      const num = numMatch ? numMatch[1] : String(steps.length + 1);
+      const content = contentMatch[1].trim();
+      steps.push(
+        `  <div class="mf-step">\n` +
+        `    <div class="mf-step__num">${num}</div>\n` +
+        `    <div class="mf-step__content">${content}</div>\n` +
+        `  </div>`
+      );
+    }
+    if (!steps.length) return run;
+    return `[vc_column_text css=""]\n<div class="mf-steps">\n${steps.join('\n')}\n</div>\n[/vc_column_text]`;
+  });
+}
+
 function injectTocAndFaq(
   html: string,
   faq: Array<{ question: string; answer: string }>,
@@ -1016,6 +1058,9 @@ Firefly: [...]`,
         isoDate,
         articleHtml
       );
+      // Shell-Transformationen NACH der Schema-Extraktion (Artikeltext bleibt unverändert):
+      // Infobox → .mf-info-Klasse, Steps → mf-steps-Timeline.
+      articleHtml = transformSteps(addInfoboxClass(articleHtml));
       const htmlOutput = `${articleHtml}\n${schemas}`;
 
       return NextResponse.json({
