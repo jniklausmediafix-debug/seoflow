@@ -186,16 +186,24 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
     }
   }
 
+  async function runLocaleSearch(keyword: string) {
+    if (targetLocale === currentLocale || !keyword.trim()) return;
+    setLocaleLoading(true);
+    await onNewLocaleSearch(targetLocale, keyword.trim());
+    setLocaleLoading(false);
+  }
+
+  // Klick auf einen Vorschlag übernimmt ihn ins Feld UND startet direkt die
+  // Recherche mit genau diesem Keyword — kein zweiter Klick auf "abrufen" nötig,
+  // sonst bleibt die Auswahl wirkungslos, falls der zweite Klick übersehen wird.
   function handlePickCandidate(keyword: string) {
     setTranslatedKeyword(keyword);
     setKeywordCandidates(null);
+    runLocaleSearch(keyword);
   }
 
   async function handleLocaleRerun() {
-    if (targetLocale === currentLocale || !translatedKeyword.trim()) return;
-    setLocaleLoading(true);
-    await onNewLocaleSearch(targetLocale, translatedKeyword.trim());
-    setLocaleLoading(false);
+    await runLocaleSearch(translatedKeyword);
   }
   // Blog: Schema bereits server-seitig in htmlOutput enthalten
   const htmlCode = isBlog ? (seoText.htmlOutput ?? '') : buildVcHtml(seoText);
@@ -481,7 +489,8 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
                       key={c.keyword}
                       type="button"
                       onClick={() => handlePickCandidate(c.keyword)}
-                      className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm hover:border-brand-300 hover:bg-brand-50"
+                      disabled={localeLoading}
+                      className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm hover:border-brand-300 hover:bg-brand-50 disabled:opacity-50"
                     >
                       <span className="text-slate-800">
                         {c.keyword}
