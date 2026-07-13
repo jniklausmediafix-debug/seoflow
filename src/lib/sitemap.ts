@@ -17,6 +17,34 @@ export function getLocaleDomain(locale: string): string {
   return (LOCALE_DOMAINS[locale] ?? LOCALE_DOMAINS['de-DE'])[0];
 }
 
+// "Annahmestelle"/"Anfahrt"-Seiten sind immer lokale Abgabestellen-/Wegbeschreibungs-Seiten,
+// unabhängig vom Ort — dieser Marker allein reicht, um sie sicher zu erkennen.
+const LOCAL_PAGE_MARKERS = ['annahmestelle', 'anfahrt'];
+
+// {Thema}-{Stadt}-Landingpages (z. B. dias-digitalisieren-berlin) tragen keinen solchen
+// Marker — hier bleibt nur der Städtename als Erkennungsmerkmal. Liste basiert auf den
+// tatsächlich existierenden Orts-Landingpages in den DACH-Sitemaps (DE/AT/CH).
+const LOCAL_CITY_SUFFIXES = [
+  'aachen', 'augsburg', 'berlin', 'bielefeld', 'bochum', 'bonn', 'braunschweig', 'bremen',
+  'chemnitz', 'cottbus', 'dortmund', 'dresden', 'duesseldorf', 'duisburg', 'erfurt', 'erlangen',
+  'essen', 'euskirchen', 'frankfurt', 'gelsenkirchen', 'guetersloh', 'hamburg', 'hannover',
+  'heidelberg', 'karlsruhe', 'kiel', 'koblenz', 'koeln', 'konstanz', 'krefeld', 'kreuztal',
+  'leipzig', 'luebeck', 'magdeburg', 'mannheim', 'moenchengladbach', 'muenster', 'oberhausen',
+  'paderborn', 'rostock', 'siegburg', 'solingen', 'stuttgart', 'ulm', 'wiesbaden', 'wuppertal',
+  'hamm', 'wuerzburg', 'goettingen', 'ingolstadt',
+  'wien', 'graz', 'salzburg', 'linz', 'innsbruck', 'klagenfurt', 'dornbirn', 'wels', 'villach',
+  'zuerich', 'basel', 'bern', 'luzern', 'lausanne', 'genf', 'lugano', 'winterthur', 'biel', 'st-gallen',
+];
+
+function isLocalCityPage(url: string): boolean {
+  const path = url.replace(/^https?:\/\/[^/]+/, '').toLowerCase();
+  if (LOCAL_PAGE_MARKERS.some((marker) => path.includes(marker))) return true;
+
+  const lastSegment = path.replace(/\/+$/, '').split('/').pop() ?? '';
+  const slug = lastSegment.replace(/-\d+$/, ''); // Duplikat-Suffixe wie "-2" abfangen
+  return LOCAL_CITY_SUFFIXES.some((city) => slug === city || slug.endsWith(`-${city}`));
+}
+
 const sitemapCache = new Map<string, string[]>();
 
 async function fetchSitemapXml(url: string): Promise<string[]> {
@@ -53,7 +81,7 @@ export async function getLocaleUrls(locale: string): Promise<string[]> {
     if (seen.has(u)) return false;
     seen.add(u);
     return true;
-  });
+  }).filter((u) => !isLocalCityPage(u));
   sitemapCache.set(locale, urls);
   return urls;
 }
