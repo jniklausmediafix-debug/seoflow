@@ -13,6 +13,10 @@ const LOCALE_DOMAINS: Record<string, string[]> = {
   'it-CH': ['https://mediafixdigitale.it'],
 };
 
+export function getLocaleDomain(locale: string): string {
+  return (LOCALE_DOMAINS[locale] ?? LOCALE_DOMAINS['de-DE'])[0];
+}
+
 const sitemapCache = new Map<string, string[]>();
 
 async function fetchSitemapXml(url: string): Promise<string[]> {

@@ -3,7 +3,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { Cluster, SEOText, LocaleValue, LocaleConfig } from '@/types';
 import { LOCALE_CONFIG } from '@/types';
 import { parseClaudeJson } from '@/lib/parseJson';
-import { getLocaleUrls } from '@/lib/sitemap';
+import { getLocaleUrls, getLocaleDomain } from '@/lib/sitemap';
 import { COMPONENT_CSS } from '@/lib/componentCss';
 
 function getLocaleConfig(locale?: string): LocaleConfig {
@@ -551,6 +551,17 @@ function transformSteps(html: string): string {
   });
 }
 
+// Leere-Block-Fix: Visual Composer wickelt losen Inhalt (HTML-Kommentare,
+// Whitespace) ZWISCHEN zwei Rows in leere Textblöcke ein. Diese Funktion sorgt
+// dafür, dass [/vc_row] und [vc_row] direkt aneinanderstoßen — entfernt dabei
+// die losen Firefly-Kommentare und Zwischen-Whitespace. Nur Struktur, kein Text.
+function normalizeVcRows(html: string): string {
+  return html.replace(
+    /\[\/vc_row\]\s*(?:<!--[\s\S]*?-->\s*)*\[vc_row\b/g,
+    '[/vc_row][vc_row'
+  );
+}
+
 function injectTocAndFaq(
   html: string,
   faq: Array<{ question: string; answer: string }>,
@@ -610,9 +621,12 @@ function buildBlogSchemas(
   seoDescription: string,
   faq: Array<{ question: string; answer: string }>,
   isoDate: string,
-  articleHtml: string
+  articleHtml: string,
+  lc: LocaleConfig,
+  locale?: string
 ): string {
   const blocks: string[] = [];
+  const domain = getLocaleDomain(locale ?? 'de-DE');
 
   // FAQPage
   if (faq.length > 0) {
@@ -642,10 +656,10 @@ function buildBlogSchemas(
     author: {
       '@type': 'Person',
       name: 'Artem Honcharenko',
-      jobTitle: 'Datenrettungsexperte',
-      worksFor: { '@type': 'Organization', name: 'MEDIAFIX', url: 'https://mediafix.de' },
+      jobTitle: lc.expertJobTitle,
+      worksFor: { '@type': 'Organization', name: 'MEDIAFIX', url: domain },
     },
-    publisher: { '@type': 'Organization', name: 'MEDIAFIX', url: 'https://mediafix.de' },
+    publisher: { '@type': 'Organization', name: 'MEDIAFIX', url: domain },
   }));
 
   return blocks.join('\n');
@@ -1056,12 +1070,16 @@ Firefly: [...]`,
         meta.seoDescription ?? '',
         faqParsed.faq ?? [],
         isoDate,
-        articleHtml
+        articleHtml,
+        lc,
+        locale
       );
       // Shell-Transformationen NACH der Schema-Extraktion (Artikeltext bleibt unverändert):
       // Infobox → .mf-info-Klasse, Steps → mf-steps-Timeline.
       articleHtml = transformSteps(addInfoboxClass(articleHtml));
-      const htmlOutput = `${articleHtml}\n${schemas}`;
+      // normalizeVcRows als allerletzter Schritt: entfernt losen Inhalt (Firefly-Kommentare,
+      // Whitespace) zwischen Rows, den Visual Composer sonst als leere Textblöcke rendert.
+      const htmlOutput = normalizeVcRows(`${articleHtml}\n${schemas}`);
 
       return NextResponse.json({
         seoText: {
