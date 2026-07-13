@@ -152,6 +152,9 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
   const [targetLocale, setTargetLocale] = useState<LocaleValue>(currentLocale);
   const [translatedKeyword, setTranslatedKeyword] = useState(seedKeyword);
   const [localeLoading, setLocaleLoading] = useState(false);
+  const [keywordCandidates, setKeywordCandidates] = useState<{ keyword: string; searchVolume: number }[] | null>(null);
+  const [keywordSuggestLoading, setKeywordSuggestLoading] = useState(false);
+  const [keywordSuggestError, setKeywordSuggestError] = useState<string | null>(null);
   const isBlog = !!seoText.htmlOutput;
 
   const otherLocales = LOCALES.filter((l) => l.value !== currentLocale);
@@ -159,6 +162,33 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
   function handleLocaleSelect(locale: LocaleValue) {
     setTargetLocale(locale);
     if (locale === currentLocale) setTranslatedKeyword(seedKeyword);
+    setKeywordCandidates(null);
+    setKeywordSuggestError(null);
+  }
+
+  async function handleSuggestKeyword() {
+    setKeywordSuggestLoading(true);
+    setKeywordSuggestError(null);
+    setKeywordCandidates(null);
+    try {
+      const res = await fetch('/api/translate-keyword', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seedKeyword, targetLocale }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setKeywordCandidates(data.candidates ?? []);
+    } catch (err) {
+      setKeywordSuggestError(err instanceof Error ? err.message : 'Fehler beim Vorschlag');
+    } finally {
+      setKeywordSuggestLoading(false);
+    }
+  }
+
+  function handlePickCandidate(keyword: string) {
+    setTranslatedKeyword(keyword);
+    setKeywordCandidates(null);
   }
 
   async function handleLocaleRerun() {
@@ -416,16 +446,61 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
                 ({LOCALES.find((l) => l.value === targetLocale)?.label})
               </span>
             </label>
-            <input
-              type="text"
-              value={translatedKeyword}
-              onChange={(e) => setTranslatedKeyword(e.target.value)}
-              placeholder={`z.B. "${seedKeyword}" auf Zielsprache übersetzen`}
-              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100"
-            />
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={translatedKeyword}
+                onChange={(e) => setTranslatedKeyword(e.target.value)}
+                placeholder={`z.B. "${seedKeyword}" auf Zielsprache übersetzen`}
+                className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              />
+              <button
+                type="button"
+                onClick={handleSuggestKeyword}
+                disabled={keywordSuggestLoading}
+                className="shrink-0 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:border-brand-200 hover:bg-brand-50 disabled:opacity-50"
+              >
+                {keywordSuggestLoading ? 'Suche…' : 'Vorschlag holen'}
+              </button>
+            </div>
             <p className="mt-1 text-[11px] text-slate-400">
-              Übersetze das Keyword in die Sprache des Zielmarkts — DataForSEO sucht damit lokale Suchanfragen.
+              Übersetze das Keyword in die Sprache des Zielmarkts, oder lass Claude + DataForSEO das
+              such­volumenstärkste Keyword im Zielmarkt vorschlagen — eine wörtliche Übersetzung trifft nicht
+              immer den echten Suchbegriff.
             </p>
+
+            {keywordSuggestError && (
+              <p className="mt-2 text-xs text-red-600">{keywordSuggestError}</p>
+            )}
+
+            {keywordCandidates && (
+              keywordCandidates.length > 0 ? (
+                <div className="mt-2 flex flex-col gap-1.5">
+                  {keywordCandidates.map((c, i) => (
+                    <button
+                      key={c.keyword}
+                      type="button"
+                      onClick={() => handlePickCandidate(c.keyword)}
+                      className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm hover:border-brand-300 hover:bg-brand-50"
+                    >
+                      <span className="text-slate-800">
+                        {c.keyword}
+                        {i === 0 && (
+                          <span className="ml-2 rounded-full bg-brand-600 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                            Stärkstes Volumen
+                          </span>
+                        )}
+                      </span>
+                      <span className="shrink-0 text-xs text-slate-400">
+                        {c.searchVolume.toLocaleString('de-DE')} Suchen/Monat
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-2 text-xs text-slate-400">Keine Kandidaten mit Suchvolumen gefunden.</p>
+              )
+            )}
           </div>
         )}
 
