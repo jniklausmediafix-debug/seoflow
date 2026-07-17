@@ -1,3 +1,19 @@
+// Zitat-/Testimonial-Baustein (MEDIAFIX) — leere Vorlage zum manuellen Einfügen
+// in WordPress. Struktur 1:1 nach RTF-Referenz; das Styling liefert das
+// Theme-CSS (.quote-shortcode / .quote-border) live in WordPress, daher hier
+// bewusst KEIN zusätzliches CSS. Platzhalter (Bild-ID, Zitat, Name/Position)
+// werden redaktionell befüllt — kein KI-generierter Inhalt.
+export const QUOTE_TEMPLATE = `[vc_row content_placement="middle" css=".vc_custom_1781856360700{background-color: #F2F2F2 !important;}"][vc_column width="1/4"][vc_single_image image="" alignment="center" style="vc_box_circle_2" css=""][/vc_column][vc_column width="3/4"][vc_column_text css=""]
+<div class="quote-shortcode" style="text-align: center;">
+
+<span class="quote-border top">»</span>
+<blockquote>Zitat hier einfügen …</blockquote>
+<span class="quote-border bottom">«</span>
+
+<footer><cite class="name">Name
+Position bei MEDIAFIX</cite></footer></div>
+[/vc_column_text][/vc_column][/vc_row]`;
+
 export const COMPONENT_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=Bitter:wght@600;700&display=swap');
 
