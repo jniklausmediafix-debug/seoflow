@@ -4,7 +4,7 @@ import type { Cluster, SEOText, LocaleValue, LocaleConfig } from '@/types';
 import { LOCALE_CONFIG } from '@/types';
 import { parseClaudeJson } from '@/lib/parseJson';
 import { getLocaleUrls, getLocaleDomain } from '@/lib/sitemap';
-import { COMPONENT_CSS } from '@/lib/componentCss';
+import { COMPONENT_CSS, QUOTE_TEMPLATE } from '@/lib/componentCss';
 
 function getLocaleConfig(locale?: string): LocaleConfig {
   return LOCALE_CONFIG[locale as LocaleValue] ?? LOCALE_CONFIG['de-DE'];
@@ -461,29 +461,13 @@ ${items}
 </div>`;
 }
 
-function buildExpertBox(bio: string, lc: LocaleConfig): string {
-  const cleanBio = bio.replace(/^#+\s*/gm, '').replace(/\*\*/g, '').trim();
+// Zitat-/Testimonial-Box — ersetzt die frühere Expertenbox (Artem Honcharenko).
+// Leere Vorlage nach RTF-Referenz (.quote-shortcode), wird redaktionell befüllt
+// (Bild-ID, Zitat, Name, Position). Bewusst KEIN KI-generierter Inhalt und kein
+// eigenes CSS — das Styling liefert das WordPress-Theme live.
+function buildExpertBox(_bio: string, _lc: LocaleConfig): string {
   return `[/vc_column_text][/vc_column][/vc_row]
-[vc_row][vc_column][vc_column_text css=""]
-<div class="mf-expert" itemscope itemtype="https://schema.org/Person">
-  <div class="mf-expert__inner">
-    <div class="mf-expert__sidebar">
-      <div class="mf-expert__avatar">AH</div>
-      <div class="mf-expert__badge">${lc.expertBadge}</div>
-    </div>
-    <div class="mf-expert__body">
-      <span class="mf-expert__label">${lc.expertLabel}</span>
-      <p class="mf-expert__name" itemprop="name">Artem Honcharenko</p>
-      <p class="mf-expert__title" itemprop="jobTitle">${lc.expertJobTitle}</p>
-      <div class="mf-expert__divider"></div>
-      <p class="mf-expert__quote" itemprop="description">
-        <span class="mf-expert__quote-mark">&#8222;</span>
-        ${cleanBio}
-      </p>
-    </div>
-  </div>
-</div>
-[/vc_column_text][/vc_column][/vc_row]
+${QUOTE_TEMPLATE}
 [vc_row][vc_column][vc_column_text css=""]`;
 }
 

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import type { SEOText, LocaleValue } from '@/types';
 import { LOCALES } from '@/types';
-import { COMPONENT_CSS, QUOTE_TEMPLATE } from '@/lib/componentCss';
+import { COMPONENT_CSS } from '@/lib/componentCss';
 
 interface Props {
   seoText: SEOText;
@@ -21,7 +21,14 @@ function CopyButton({ text }: { text: string }) {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <button onClick={copy} className="text-xs text-slate-400 hover:text-brand-600 transition-colors">
+    <button
+      onClick={copy}
+      className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors ${
+        copied
+          ? 'border-brand-300 bg-brand-50 text-brand-700'
+          : 'border-slate-300 bg-white text-slate-600 hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700'
+      }`}
+    >
       {copied ? '✓ Kopiert' : 'Kopieren'}
     </button>
   );
@@ -396,7 +403,7 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
           <div className="flex items-center gap-3">
             <button
               onClick={() => openPreview(htmlCode, COMPONENT_CSS)}
-              className="text-xs text-slate-400 hover:text-brand-600 transition-colors"
+              className="inline-flex items-center gap-1 rounded-md bg-brand-600 px-2.5 py-1 text-xs font-semibold text-white transition-colors hover:bg-brand-700"
             >
               Vorschau →
             </button>
@@ -425,26 +432,6 @@ export default function Step5Generate({ seoText, currentLocale, seedKeyword, onN
           value={COMPONENT_CSS}
           rows={6}
           className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-xs text-slate-700 focus:outline-none resize-y"
-        />
-      </div>
-
-      {/* Zitat-Element (Testimonial) — leere Vorlage zum Einfügen */}
-      <div className="card">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h2 className="text-lg font-extrabold text-slate-900">Zitat-Element (Testimonial)</h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Leere Vorlage — an gewünschter Stelle in WordPress einfügen und mit echtem Zitat, Name,
-              Position &amp; Bild befüllen. Styling kommt aus dem Theme.
-            </p>
-          </div>
-          <CopyButton text={QUOTE_TEMPLATE} />
-        </div>
-        <textarea
-          readOnly
-          value={QUOTE_TEMPLATE}
-          rows={6}
-          className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-xs text-[#333333] focus:outline-none resize-y"
         />
       </div>
 
