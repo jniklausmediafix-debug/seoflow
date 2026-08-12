@@ -100,11 +100,6 @@ hr{border:none;border-top:2px solid #e2e8f0;margin:2rem 0}
 strong{font-weight:600}
 .advantages{list-style:none;padding-left:0}.advantages li::before{content:'✓ ';color:#90ad25;font-weight:700}
 .disadvantages{list-style:none;padding-left:0}.disadvantages li::before{content:'✗ ';color:#ef4444;font-weight:700}
-.quote-shortcode{max-width:640px;margin:2.25rem auto;text-align:center}
-.quote-shortcode .quote-border{display:block;font-size:2.5rem;line-height:1;color:#90ad25;font-family:Georgia,serif}
-.quote-shortcode blockquote{border:none;margin:.25rem 0;padding:0;font-size:1.15rem;font-style:italic;color:#333}
-.quote-shortcode footer{margin-top:.75rem}
-.quote-shortcode cite{font-style:normal;font-weight:700;color:#421e47;white-space:pre-line}
 ${css}
 </style>
 </head>

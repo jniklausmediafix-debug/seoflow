@@ -4,7 +4,7 @@ import type { Cluster, SEOText, LocaleValue, LocaleConfig } from '@/types';
 import { LOCALE_CONFIG } from '@/types';
 import { parseClaudeJson } from '@/lib/parseJson';
 import { getLocaleUrls, getLocaleDomain } from '@/lib/sitemap';
-import { COMPONENT_CSS, QUOTE_TEMPLATE } from '@/lib/componentCss';
+import { COMPONENT_CSS } from '@/lib/componentCss';
 
 function getLocaleConfig(locale?: string): LocaleConfig {
   return LOCALE_CONFIG[locale as LocaleValue] ?? LOCALE_CONFIG['de-DE'];
@@ -374,13 +374,11 @@ function estimateReadTime(html: string): number {
   return Math.max(3, Math.round(words / 220));
 }
 
-function buildTocJs(lc: LocaleConfig): string {
-  const script = `<script>document.addEventListener('click',function(e){if(!e.target.closest('.mf-toc__header'))return;var t=document.getElementById('mfToc');var l=t.querySelector('.mf-toc__toggle');t.classList.toggle('collapsed');l.textContent=t.classList.contains('collapsed')?'${lc.tocToggleShow}':'${lc.tocToggleHide}';},true);</script>`;
-  return Buffer.from(script, 'utf8').toString('base64');
-}
-
+// Single-Open-Akkordeon für die nativen <details>-FAQ-Items (article-faq).
+// Beim Öffnen eines Items werden die übrigen geschlossen. Ohne JS bleibt die
+// FAQ voll funktionsfähig (natives <details>), das Script ist reine Zutat.
 const FAQ_JS = Buffer.from(
-  `<script>document.addEventListener('click',function(e){var q=e.target.closest('.mf-faq__question');if(!q)return;var item=q.closest('.mf-faq__item');var isOpen=item.classList.contains('open');document.querySelectorAll('.mf-faq__item.open').forEach(function(el){if(el!==item){el.classList.remove('open');var ic=el.querySelector('.mf-faq__icon');if(ic)ic.textContent='+';}});item.classList.toggle('open',!isOpen);var icon=item.querySelector('.mf-faq__icon');if(icon)icon.textContent=item.classList.contains('open')?'×':'+';},true);</script>`,
+  `<script>document.addEventListener('toggle',function(e){var d=e.target;if(!d.matches||!d.matches('.article-faq .faq-item')||!d.open)return;d.parentNode.querySelectorAll('.faq-item[open]').forEach(function(o){if(o!==d)o.open=false;});},true);</script>`,
   'utf8'
 ).toString('base64');
 
@@ -418,56 +416,60 @@ function extractH2s(html: string): Array<{ id: string; text: string }> {
 }
 
 function buildTocHtml(headings: Array<{ id: string; text: string }>, faqCount: number, lc: LocaleConfig, readMins: number): string {
-  const items = headings.map((h, i) =>
-    `      <li class="mf-toc__item${i === 0 ? ' mf-toc__item--highlight' : ''}">` +
-    `<a href="#${h.id}" class="mf-toc__link">` +
-    `<span class="mf-toc__text">${h.text}</span>` +
-    `<span class="mf-toc__arrow">›</span></a></li>`
+  const items = headings.map(
+    (h) => `  <li><a href="#${h.id}">${h.text}</a></li>`
   );
   if (faqCount > 0) {
-    items.push(
-      '      <li class="mf-toc__item"><a href="#faq" class="mf-toc__link">' +
-      `<span class="mf-toc__text">${lc.faqHeadline}</span>` +
-      '<span class="mf-toc__arrow">›</span></a></li>'
-    );
+    items.push(`  <li><a href="#faq">${lc.faqHeadline}</a></li>`);
   }
-  return `<nav class="mf-toc" id="mfToc" aria-label="${lc.tocTitle}">
-  <div class="mf-toc__header">
-    <span class="mf-toc__title">${lc.tocTitle}</span>
-  </div>
-  <div class="mf-toc__body">
-    <ol class="mf-toc__list">
+  return `<nav class="article-component article-toc" aria-labelledby="toc-title">
+<div class="component-heading">
+<h2 id="toc-title" class="component-title">${lc.tocTitle}</h2>
+</div>
+<ol>
 ${items.join('\n')}
-    </ol>
-  </div>
+</ol>
 </nav>`;
 }
 
 function buildFaqHtml(faq: Array<{ question: string; answer: string }>, lc: LocaleConfig): string {
   if (!faq.length) return '';
-  const items = faq.map(f => `  <div class="mf-faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <div class="mf-faq__question">
-      <span class="mf-faq__q-text" itemprop="name">${f.question}</span>
-      <span class="mf-faq__icon" aria-hidden="true">+</span>
-    </div>
-    <div class="mf-faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div class="mf-faq__a-inner" itemprop="text">${f.answer}</div>
-    </div>
-  </div>`).join('\n');
+  // Natives <details>-Akkordeon (article-faq). Schema.org-Microdata bleibt
+  // erhalten (zusätzlich zum FAQPage-JSON-LD), damit die SEO/GEO-Signale
+  // gegenüber der alten mf-faq nicht schwächer werden. Erstes Item offen.
+  const items = faq.map((f, i) => `<details class="faq-item"${i === 0 ? ' open=""' : ''} itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><summary itemprop="name">${f.question}</summary>
+<div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">${f.answer}</div></div>
+</details>`).join('');
 
-  return `<div class="mf-faq" id="faq" itemscope itemtype="https://schema.org/FAQPage">
-  <h2 class="mf-faq__headline">${lc.faqHeadline}</h2>
-${items}
-</div>`;
+  return `<section id="faq" class="article-component article-faq" aria-labelledby="faq-title" itemscope itemtype="https://schema.org/FAQPage">
+<div class="component-heading">
+<h2 id="faq-title" class="component-title">${lc.faqHeadline}</h2>
+</div>
+<div class="faq-list">${items}</div>
+</section>`;
 }
 
-// Zitat-/Testimonial-Box — ersetzt die frühere Expertenbox (Artem Honcharenko).
-// Leere Vorlage nach RTF-Referenz (.quote-shortcode), wird redaktionell befüllt
-// (Bild-ID, Zitat, Name, Position). Bewusst KEIN KI-generierter Inhalt und kein
-// eigenes CSS — das Styling liefert das WordPress-Theme live.
-function buildExpertBox(_bio: string, _lc: LocaleConfig): string {
+// Zitat-/Testimonial-Box (mfx-tm) — ersetzt die frühere Expertenbox.
+// Leere Vorlage nach RTF-Referenz, wird redaktionell befüllt (Personenfoto,
+// Zitat, Name, Position). Bewusst KEIN KI-generierter Inhalt. Das dekorative
+// quote.png wird automatisch aus der Mediathek der jeweiligen Länder-Domain
+// gezogen (alle Domains: /wp-content/uploads/2026/07/quote.png).
+function buildExpertBox(_bio: string, _lc: LocaleConfig, domain: string): string {
+  const quoteMark = `${domain}/wp-content/uploads/2026/07/quote.png`;
   return `[/vc_column_text][/vc_column][/vc_row]
-${QUOTE_TEMPLATE}
+[vc_row][vc_column][vc_column_text css=""]
+<div class="mfx-tm">
+<div class="mfx-tm__card">
+<div class="mfx-tm__photo"><img src="HIER BILD-URL EINFÜGEN" alt="Name" /></div>
+<div class="mfx-tm__content">
+<div class="mfx-tm__mark" aria-hidden="true"><img src="${quoteMark}" alt="" width="118" height="94" /></div>
+<p class="mfx-tm__quote">Zitat hier einfügen …</p>
+<p class="mfx-tm__name">Name</p>
+<p class="mfx-tm__role">Position bei MEDIAFIX</p>
+</div>
+</div>
+</div>
+[/vc_column_text][/vc_column][/vc_row]
 [vc_row][vc_column][vc_column_text css=""]`;
 }
 
@@ -551,13 +553,14 @@ function injectTocAndFaq(
   faq: Array<{ question: string; answer: string }>,
   lc: LocaleConfig,
   images: Array<{ position: string; altText: string; fireflyPrompt: string }> = [],
-  expertBio?: string
+  expertBio?: string,
+  domain = 'https://mediafix.de'
 ): string {
   const headings = extractH2s(html);
   const toc = buildTocHtml(headings, faq.length, lc, estimateReadTime(html));
 
-  // 1. TOC + optionale Expertenbox nach <hr />
-  const expertBlock = expertBio ? `\n\n${buildExpertBox(expertBio, lc)}` : '';
+  // 1. TOC + optionale Testimonial-Box nach <hr />
+  const expertBlock = expertBio ? `\n\n${buildExpertBox(expertBio, lc, domain)}` : '';
   let result = html.replace('<hr />', `<hr />\n\n${toc}${expertBlock}`);
 
   // 2. Bild 1 nach <hr /> + TOC (vor erster H2)
@@ -1039,7 +1042,8 @@ Firefly: [...]`,
         faqParsed.faq ?? [],
         lc,
         images,
-        faqParsed.expertBio
+        faqParsed.expertBio,
+        getLocaleDomain(locale ?? 'de-DE')
       ));
       // Referenz-URL immer in CTA-Button einsetzen
       if (referenceUrl?.trim()) {
